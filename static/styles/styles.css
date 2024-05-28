@@ -22,6 +22,7 @@ h1 {
 
 .question {
     margin-bottom: 20px;
+    display: none; /* Hide all questions by default */
 }
 
 button {
