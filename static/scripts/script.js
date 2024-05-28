@@ -1,22 +1,23 @@
-document.body.style.margin   = 0
-document.body.style.overflow = `hidden`
+document.addEventListener('DOMContentLoaded', () => {
+    const sounds = [];
+    const playSymphonyButton = document.getElementById('playSymphony');
+    const stopSymphonyButton = document.getElementById('stopSymphony');
 
-const cnv = document.getElementById (`cnv_element`)
-cnv.width = innerWidth
-cnv.height = innerHeight
+    document.querySelectorAll('.answer').forEach(button => {
+        button.addEventListener('click', event => {
+            const sound = new Audio(event.target.getAttribute('data-sound'));
+            sounds.push(sound);
+        });
+    });
 
-const ctx = cnv.getContext (`2d`)
+    playSymphonyButton.addEventListener('click', () => {
+        sounds.forEach(sound => sound.play());
+    });
 
-const draw_frame = () => {
-   ctx.fillStyle = `turquoise`
-   ctx.fillRect (0, 0, innerWidth, innerHeight)
-
-   requestAnimationFrame (draw_frame)
-}
-
-draw_frame ()
-
-window.onresize = () => {
-   cnv.width = innerWidth
-   cnv.height = innerHeight   
-}
+    stopSymphonyButton.addEventListener('click', () => {
+        sounds.forEach(sound => {
+            sound.pause();
+            sound.currentTime = 0;
+        });
+    });
+});
