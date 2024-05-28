@@ -4,8 +4,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const playSymphonyButton = document.getElementById('playSymphony');
     const stopSymphonyButton = document.getElementById('stopSymphony');
     const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
     let currentQuestion = 0;
     let isRunning = false; // Boolean variable to control animation
+
+    // Default square properties
+    let squareProperties = {
+        color: 'black',
+        size: 240,
+        speed: 8
+    };
 
     // Show the first question
     questions[currentQuestion].style.display = 'block';
@@ -14,6 +22,17 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', event => {
             const sound = new Audio(event.target.getAttribute('data-sound'));
             sounds.push(sound);
+
+            // Update square properties based on user's choice
+            const property = event.target.getAttribute('data-property');
+            const value = event.target.getAttribute('data-value');
+            if (property && value) {
+                if (property === 'size' || property === 'speed') {
+                    squareProperties[property] = parseFloat(value);
+                } else {
+                    squareProperties[property] = value;
+                }
+            }
 
             // Hide the current question
             questions[currentQuestion].style.display = 'none';
@@ -45,19 +64,15 @@ document.addEventListener('DOMContentLoaded', () => {
         isRunning = false; // Pause square animation
     });
 
-    // Square animation code
-    const ctx = canvas.getContext('2d');
-
     // Set canvas width and height to fill the window
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
     // Square properties
-    let squareSize = 240; // Squares are 240 pixels big
-    let squareX = Math.random() * (canvas.width - squareSize); // Random starting x position
-    let squareY = Math.random() * (canvas.height - squareSize); // Random starting y position
-    let dx = 8; // 4 times faster
-    let dy = 8; // 4 times faster
+    let squareX = Math.random() * (canvas.width - squareProperties.size); // Random starting x position
+    let squareY = Math.random() * (canvas.height - squareProperties.size); // Random starting y position
+    let dx = squareProperties.speed;
+    let dy = squareProperties.speed;
 
     // Color change interval
     const colorChangeInterval = 4; // Colour changes every 4 frames
@@ -87,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Change color every colorChangeInterval frames
         if (frameCount % colorChangeInterval === 0) {
             // Generate a random color for the square
-            const color = randomColor();
+            const color = squareProperties.color === 'random' ? randomColor() : squareProperties.color;
 
             // Add current position and color to arrays for trail effect
             trailPositions.push({ x: squareX, y: squareY });
@@ -99,10 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
         squareY += dy; // Move vertically
 
         // Bounce off the edges if the square hits the canvas boundaries
-        if (squareX + squareSize > canvas.width || squareX < 0) {
+        if (squareX + squareProperties.size > canvas.width || squareX < 0) {
             dx = -dx; // Reverse horizontal direction
         }
-        if (squareY + squareSize > canvas.height || squareY < 0) {
+        if (squareY + squareProperties.size > canvas.height || squareY < 0) {
             dy = -dy; // Reverse vertical direction
         }
 
@@ -112,11 +127,4 @@ document.addEventListener('DOMContentLoaded', () => {
         // Draw trail
         for (let i = 0; i < trailPositions.length; i++) {
             const { x, y } = trailPositions[i]; // Get position from array
-            const color = trailColors[i]; // Get color from array
-            drawSquare(x, y, squareSize, color); // Draw square at position with color
-        }
-
-        // Request next animation frame to continue animation loop
-        requestAnimationFrame(animate);
-    }
-});
+           
