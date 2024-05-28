@@ -3,8 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const questions = document.querySelectorAll('.question');
     const playSymphonyButton = document.getElementById('playSymphony');
     const stopSymphonyButton = document.getElementById('stopSymphony');
+    const canvas = document.getElementById('canvas');
     let currentQuestion = 0;
-    let isRunning = true; // Boolean variable to control animation
+    let isRunning = false; // Boolean variable to control animation
 
     // Show the first question
     questions[currentQuestion].style.display = 'block';
@@ -23,6 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 questions[currentQuestion].style.display = 'block';
             } else {
                 document.getElementById('controls').style.display = 'block';
+                canvas.style.display = 'block'; // Show the canvas
+                isRunning = true; // Start square animation
+                animate(); // Start animation loop
             }
         });
     });
@@ -30,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     playSymphonyButton.addEventListener('click', () => {
         sounds.forEach(sound => sound.play());
         isRunning = true; // Resume square animation
-        animate(); // If animation is resumed, call animate function to continue animation loop
+        animate(); // Continue animation loop
     });
 
     stopSymphonyButton.addEventListener('click', () => {
@@ -42,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Square animation code
-    const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
 
     // Set canvas width and height to fill the window
@@ -50,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     canvas.height = window.innerHeight;
 
     // Square properties
-    let squareSize = 240; //Squares are 240 pixels big
+    let squareSize = 240; // Squares are 240 pixels big
     let squareX = Math.random() * (canvas.width - squareSize); // Random starting x position
     let squareY = Math.random() * (canvas.height - squareSize); // Random starting y position
     let dx = 8; // 4 times faster
@@ -116,7 +119,4 @@ document.addEventListener('DOMContentLoaded', () => {
         // Request next animation frame to continue animation loop
         requestAnimationFrame(animate);
     }
-
-    // Start moving/animation
-    animate();
 });
