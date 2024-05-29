@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let squareProperties = {
         color: { baseColor: 'hsl(0, 100%, 50%)', hue: 0 },
         size: 240,
-        speed: 8
+        speed: 4 // Slower speed
     };
 
     // Show the first question
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let dy = squareProperties.speed * 0.67; // Slow down by about 1/3
 
     // Color change interval
-    const colorChangeInterval = 12; // Change the color every 12 frames to slow down the animation
+    const colorChangeInterval = 24; // Change the color every 24 frames to slow down the animation
     let frameCount = 0;
 
     // Array to store previous positions and colors for trail effect
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to play a sound with slight pitch variation
     function playSound(src) {
         const sound = new Audio(src);
-        const playbackRate = 1 + (Math.random() * 0.1 - 0.05); // Vary the playback rate slightly
+        const playbackRate = 0.5 + (Math.random() * 0.1 - 0.05); // Vary the playback rate slightly (slower)
         sound.playbackRate = playbackRate;
         sound.play();
     }
