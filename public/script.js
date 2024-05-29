@@ -20,8 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.answer').forEach(button => {
         button.addEventListener('click', event => {
-            const soundSrc = event.target.getAttribute('data-sound');
-            soundsData.push(soundSrc);
+            const soundSrc1 = event.target.getAttribute('data-sound1');
+            const soundSrc2 = event.target.getAttribute('data-sound2');
+            const soundSrc3 = event.target.getAttribute('data-sound3');
+            soundsData.push([soundSrc1, soundSrc2, soundSrc3]);
 
             // Update square properties based on user's choice
             const property = event.target.getAttribute('data-property');
@@ -89,9 +91,10 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fillRect(x, y, size, size); // Draw filled rectangle
     }
 
-    // Function to play a sound with slight pitch variation
-    function playSound(src) {
-        const sound = new Audio(src);
+    // Function to play a random sound from a set of three with slight pitch variation
+    function playSound(sounds) {
+        const randomIndex = Math.floor(Math.random() * 3); // Generate a random index (0, 1, or 2)
+        const sound = new Audio(sounds[randomIndex]);
         const playbackRate = 0.5 + (Math.random() * 0.1 - 0.05); // Vary the playback rate slightly (slower)
         sound.playbackRate = playbackRate;
         sound.play();
