@@ -89,9 +89,11 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fillRect(x, y, size, size); // Draw filled rectangle
     }
 
-    // Function to play a sound
+    // Function to play a sound with slight pitch variation
     function playSound(src) {
         const sound = new Audio(src);
+        const playbackRate = 1 + (Math.random() * 0.1 - 0.05); // Vary the playback rate slightly
+        sound.playbackRate = playbackRate;
         sound.play();
     }
 
