@@ -132,9 +132,6 @@ function playRandomSound() {
     }
 }
 
-// Use setInterval to play a random sound every 1 second
-// setInterval(playRandomSound, 400);
-
 // Function to play sounds 7, 8, or 9 every 2 seconds if the user chooses "Lil Sad"
 function playLilSadSound() {
     const lilSadButtons = document.querySelectorAll('.answer[data-value="blue"]');
@@ -146,7 +143,7 @@ function playLilSadSound() {
                 setInterval(() => {
                     const randomSoundIndex = Math.floor(Math.random() * 3) + 7; // Random index between 7 and 9
                     playSound(`sound${randomSoundIndex}.mp3`);
-                }, 2000);
+                }, 1753);
             }
         });
     });
