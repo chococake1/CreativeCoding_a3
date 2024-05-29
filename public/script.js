@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let dy = squareProperties.speed * 0.67; // Slow down by about 1/3
 
     // Color change interval
-    const colorChangeInterval = 6; // Change the color every 6 frames to slow down the animation
+    const colorChangeInterval = 12; // Change the color every 12 frames to slow down the animation
     let frameCount = 0;
 
     // Array to store previous positions and colors for trail effect
@@ -109,8 +109,10 @@ document.addEventListener('DOMContentLoaded', () => {
             trailColors.push(color);
 
             // Play corresponding sound if there is any
-            if (sounds.length > 0) {
-                sounds[(frameCount / colorChangeInterval) % sounds.length].play();
+            const soundIndex = (frameCount / colorChangeInterval) % sounds.length;
+            if (sounds[soundIndex]) {
+                sounds[soundIndex].currentTime = 0; // Reset sound to start
+                sounds[soundIndex].play();
             }
         }
 
@@ -119,8 +121,4 @@ document.addEventListener('DOMContentLoaded', () => {
         squareY += dy; // Move vertically
 
         // Bounce off the edges if the square hits the canvas boundaries
-        if (squareX + squareProperties.size > canvas.width || squareX < 0) {
-            dx = -dx; // Reverse horizontal direction
-        }
-        if (squareY + squareProperties.size > canvas.height || squareY < 0) {
-            dy = -dy; // Reverse
+        if (squareX + squareProperties.size > canvas.width || squareX <
