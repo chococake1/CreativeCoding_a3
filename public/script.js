@@ -132,6 +132,27 @@ document.addEventListener('DOMContentLoaded', () => {
 //     }
 // }
 
+    
+// Function to play sounds 1, 2, or 3 every 1.3 seconds if the user chooses "Content"
+function playContentSound() {
+    const contentButtons = document.querySelectorAll('.answer[data-value="yellow"]');
+    contentButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Check if the clicked button has value "yellow" (Content)
+            if (button.getAttribute('data-value') === "yellow") {
+                // Set interval to play sounds 1, 2, or 3 every 1.3 seconds
+                setInterval(() => {
+                    const randomSoundIndex = Math.floor(Math.random() * 3) + 1; // Random index between 1 and 3
+                    playSound(`sound${randomSoundIndex}.mp3`);
+                }, 1300);
+            }
+        });
+    });
+}
+
+// Call the function to play sounds 1, 2, or 3 every 1.3 seconds if "Content" is chosen
+playContentSound();
+    
 // Function to play sounds 4, 5, or 6 every 3.5 seconds if the user chooses "Anxious"
 function playAnxiousSound() {
     const anxiousButtons = document.querySelectorAll('.answer[data-value="red"]');
