@@ -233,7 +233,7 @@ function playWellAwakeSound() {
 // Call the function to play sounds 19, 20, or 21 every 1.1 seconds if "Well Awake" is chosen
 playWellAwakeSound();
     
-// Function to play sounds 22, 23, or 24 every 0.7 seconds if the user chooses "Little Tired"
+// Function to play sounds 22, 23, or 24 every 0.95 seconds if the user chooses "Little Tired"
 function playLittleTiredSound() {
     const littleTiredButtons = document.querySelectorAll('.answer[data-value="2"]');
     littleTiredButtons.forEach(button => {
