@@ -135,23 +135,18 @@ function playRandomSound() {
 // Use setInterval to play a random sound every 1 second
 // setInterval(playRandomSound, 400);
 
-    // Function to play sounds 1 to 9 every 2 seconds
-function playSoundsOneToNine() {
-    const soundIndices = Array.from(Array(9), (_, index) => index + 1); // Generate array [1, 2, ..., 9]
-    let currentIndex = 0;
-
+// Function to play sounds 1 to 3 every 2 seconds
+function playSounds123() {
+    // Set interval to play sounds 1 to 3 every 2 seconds
     setInterval(() => {
-        if (currentIndex < soundIndices.length) {
-            playSound(`sound${soundIndices[currentIndex]}.mp3`);
-            currentIndex++;
-        } else {
-            currentIndex = 0; // Reset index to start playing sounds from the beginning
+        for (let i = 1; i <= 3; i++) {
+            playSound(`sound${i}.mp3`);
         }
     }, 2000);
 }
 
-// Call the function to play sounds 1 to 9 every 2 seconds
-playSoundsOneToNine();
+// Call the function to play sounds 1 to 3 every 2 seconds
+playSounds123();
 
 // Function to play a random sound from soundsData
 function playRandomSound() {
