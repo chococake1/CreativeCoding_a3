@@ -173,13 +173,13 @@ function playLilSadSound() {
 // Call the function to play sounds 7, 8, or 9 every 2 seconds if "Lil Sad" is chosen
 playLilSadSound();
 
-    // Function to play sounds 13, 14, or 15 every 3 seconds if the user chooses "bleh"
-function playblehSound() {
-    const blehButtons = document.querySelectorAll('.answer[data-value="240"]');
-    blehButtons.forEach(button => {
+    // Function to play sounds 13, 14, or 15 every 3 seconds if the user chooses "Not Bad"
+function playNotBadSound() {
+    const notBadButtons = document.querySelectorAll('.answer[data-value="240"]');
+    notBadButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // Check if the clicked button has value "bleh" (bleh)
-            if (button.getAttribute('data-value') === "bleh") {
+            // Check if the clicked button has value "240" (Not Bad)
+            if (button.getAttribute('data-value') === "240") {
                 // Set interval to play sounds 13, 14, or 15 every 3 seconds
                 setInterval(() => {
                     const randomSoundIndex = Math.floor(Math.random() * 3) + 13; // Random index between 13 and 15
@@ -191,7 +191,7 @@ function playblehSound() {
 }
 
 // Call the function to play sounds 13, 14, or 15 every 3 seconds if "Not Bad" is chosen
-playblehSound();
+playNotBadSound();
 
 
     // Function to play sounds 25, 26, or 27 every 2.7 seconds if the user chooses "Sleeepy"
@@ -274,21 +274,17 @@ playSleepySound();
             dy = -dy; // Reverse vertical direction
         }
 
-// Clear canvas before drawing the next frame
-ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Clear canvas before drawing the next frame
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-// Draw trail
-for (let i = 0; i < trailPositions.length; i++) {
-    const { x, y } = trailPositions[i]; // Get position from array
-    const color = trailColors[i]; // Get color from array
-    drawSquare(x, y, squareProperties.size, color); // Draw square at position with color
-}
+        // Draw trail
+        for (let i = 0; i < trailPositions.length; i++) {
+            const { x, y } = trailPositions[i]; // Get position from array
+            const color = trailColors[i]; // Get color from array
+            drawSquare(x, y, squareProperties.size, color); // Draw square at position with color
+        }
 
-// Draw the current square
-drawSquare(squareX, squareY, squareProperties.size, squareProperties.color.baseColor);
-
-// Request next animation frame to continue animation loop
-requestAnimationFrame(animate);
-
+        // Request next animation frame to continue animation loop
+        requestAnimationFrame(animate);
     }
 });
