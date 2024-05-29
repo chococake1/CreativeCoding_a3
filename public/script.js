@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let squareProperties = {
         color: 'black',
         size: 240,
-        speed: 8
+        speed: 8,
+        hueVariation: 1 // Amount to change the hue by each frame
     };
 
     // Show the first question
@@ -79,8 +80,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const colorChangeInterval = 12; // Change the color every 12 frames to slow down the animation
     let frameCount = 0;
 
-    // Array to store previous positions and colors for trail effect
-    const trailSquares = [];
+    // Function to generate a random color
+    function randomColor() {
+        return '#' + Math.floor(Math.random() * 16777215).toString(16);
+    }
 
     // Function to draw a square on the canvas
     function drawSquare(square) {
@@ -103,7 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Change color and play sound every colorChangeInterval frames
         if (frameCount % colorChangeInterval === 0) {
             // Generate a random color for the square
-            const color = squareProperties.color === 'random' ? randomColor() : squareProperties.color;
+            let newHue = (squareProperties.hue + squareProperties.hueVariation) % 360;
+            squareProperties.hue = newHue;
+            const color = `hsl(${newHue}, 100%, 50%)`;
 
             // Create a new square object with current position and color
             const square = {
