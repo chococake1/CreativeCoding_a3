@@ -121,6 +121,17 @@ document.addEventListener('DOMContentLoaded', () => {
         sound.play();
     }
 
+    // Function to play a random sound from soundsData
+function playRandomSound() {
+    if (soundsData.length > 0) {
+        const randomIndex = Math.floor(Math.random() * soundsData.length);
+        playSound(soundsData[randomIndex]);
+    }
+}
+
+// Use setInterval to play a random sound every 1 second
+setInterval(playRandomSound, 1000);
+    
     // Function to animate the square
     function animate() {
         if (!isRunning) return; // Check if animation is paused
@@ -139,11 +150,11 @@ document.addEventListener('DOMContentLoaded', () => {
             trailPositions.push({ x: squareX, y: squareY });
             trailColors.push(color);
 
-            // Play a random sound from the soundsData array
-            if (soundsData.length > 0) {
-                const randomIndex = Math.floor(Math.random() * soundsData.length);
-                playSound(soundsData[randomIndex]);
-            }
+            // // Play a random sound from the soundsData array
+            // if (soundsData.length > 0) {
+            //     const randomIndex = Math.floor(Math.random() * soundsData.length);
+            //     playSound(soundsData[randomIndex]);
+            // }
         }
 
         // Move the square diagonally
