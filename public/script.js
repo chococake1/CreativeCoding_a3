@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < trailPositions.length; i++) {
             const { x, y } = trailPositions[i]; // Get position from array
             const color = trail
-Positions[i]; // Get color from array
+            // Get color from array
             drawSquare(x, y, squareProperties.size, color); // Draw square at position with color
         }
 
@@ -173,3 +173,4 @@ Positions[i]; // Get color from array
         requestAnimationFrame(animate);
     }
 });
+
