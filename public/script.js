@@ -38,17 +38,19 @@ if (property && value) {
         if (value === 'blue') {
             // Set base color to blue if "Sad" button is clicked
             squareProperties.color.baseColor = 'blue';
-            squareProperties.color.hue = 240; // Assuming hue 240 for blue
+            squareProperties.color.hue = 240; // Hue 240 for blue
         } else if (value === 'yellow') {
             // Set base color to yellow if "Excited" button is clicked
             squareProperties.color.baseColor = 'yellow';
-            squareProperties.color.hue = 60; // Assuming hue 60 for yellow
+            squareProperties.color.hue = 60; // Hue 60 for yellow
         } else {
+            // For other colors, set base color and hue to defaults
             squareProperties.color.baseColor = value;
             squareProperties.color.hue = 0;
         }
     }
 }
+
 
 
 
