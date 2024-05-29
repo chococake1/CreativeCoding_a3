@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sound.play();
     }
 
-let lastPlayedSoundIndex = -1; // Initialize with an invalid index
+// let lastPlayedSoundIndex = -1; // Initialize with an invalid index
 
 // // Function to play a random sound from soundsData
 // function playRandomSound() {
@@ -149,7 +149,7 @@ function playAnxiousSound() {
     });
 }
 
-// Call the function to play sounds 7, 8, or 9 every 2 seconds if "Lil Sad" is chosen
+// Call the function to play sounds 4, 5, or 6 every 3.5 seconds if "Anxious" is chosen
 playAnxiousSound();
 
 // Function to play sounds 7, 8, or 9 every 2 seconds if the user chooses "Lil Sad"
