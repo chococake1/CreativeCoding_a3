@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Default square properties
     let squareProperties = {
-        color: 'black',
+        color: { baseColor: 'hsl(0, 100%, 50%)', hue: 0 },
         size: 240,
         speed: 8
     };
@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (property && value) {
                 if (property === 'size' || property === 'speed') {
                     squareProperties[property] = parseFloat(value);
-                } else {
-                    squareProperties[property] = value;
+                } else if (property === 'color') {
+                    squareProperties.color.baseColor = value;
                 }
             }
 
@@ -83,20 +83,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const trailPositions = [];
     const trailColors = [];
 
-    // Function to generate a random color
-    function randomColor() {
-        return '#' + Math.floor(Math.random() * 16777215).toString(16);
-    }
-
     // Function to draw a square on the canvas
     function drawSquare(x, y, size, color) {
         ctx.fillStyle = color; // Set fill color
         ctx.fillRect(x, y, size, size); // Draw filled rectangle
     }
 
-    // Function to play a sound
+    // Function to play a sound with slight pitch variation
     function playSound(src) {
         const sound = new Audio(src);
+        const playbackRate = 1 + (Math.random() * 0.1 - 0.05); // Vary the playback rate slightly
+        sound.playbackRate = playbackRate;
         sound.play();
     }
 
@@ -109,7 +106,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Change color and play sound every colorChangeInterval frames
         if (frameCount % colorChangeInterval === 0) {
             // Generate a random color for the square
-            const color = squareProperties.color === 'random' ? randomColor() : squareProperties.color;
+            const hueVariation = Math.random() * 20 - 10; // Slight variation of +/- 10
+            const newHue = (squareProperties.color.hue + hueVariation) % 360;
+            squareProperties.color.hue = newHue;
+            const color = `hsl(${newHue}, 100%, 50%)`;
 
             // Add current position and color to arrays for trail effect
             trailPositions.push({ x: squareX, y: squareY });
