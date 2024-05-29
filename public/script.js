@@ -18,42 +18,48 @@ document.addEventListener('DOMContentLoaded', () => {
     // Show the first question
     questions[currentQuestion].style.display = 'block';
 
-    document.querySelectorAll('.answer').forEach(button => {
-        button.addEventListener('click', event => {
-            const soundSrc1 = event.target.getAttribute('data-sound1');
-            const soundSrc2 = event.target.getAttribute('data-sound2');
-            const soundSrc3 = event.target.getAttribute('data-sound3');
+document.querySelectorAll('.answer').forEach(button => {
+    button.addEventListener('click', event => {
+        const soundSrc1 = event.target.getAttribute('data-sound1');
+        const soundSrc2 = event.target.getAttribute('data-sound2');
+        const soundSrc3 = event.target.getAttribute('data-sound3');
 
-            if (soundSrc1) soundsData.push(soundSrc1);
-            if (soundSrc2) soundsData.push(soundSrc2);
-            if (soundSrc3) soundsData.push(soundSrc3);
+        if (soundSrc1) soundsData.push(soundSrc1);
+        if (soundSrc2) soundsData.push(soundSrc2);
+        if (soundSrc3) soundsData.push(soundSrc3);
 
-            // Update square properties based on user's choice
-            const property = event.target.getAttribute('data-property');
-            const value = event.target.getAttribute('data-value');
-            if (property && value) {
-                if (property === 'size' || property === 'speed') {
-                    squareProperties[property] = parseFloat(value);
-                } else if (property === 'color') {
-                    squareProperties.color.baseColor = value;
-                }
+        // Update square properties based on user's choice
+        const property = event.target.getAttribute('data-property');
+        const value = event.target.getAttribute('data-value');
+        if (property && value) {
+            if (property === 'size' || property === 'speed') {
+                squareProperties[property] = parseFloat(value);
+            } else if (property === 'color') {
+                squareProperties.color.baseColor = value;
             }
+        }
 
-            // Hide the current question
-            questions[currentQuestion].style.display = 'none';
+        // Hide the current question
+        questions[currentQuestion].style.display = 'none';
 
-            // Show the next question if available
-            currentQuestion++;
-            if (currentQuestion < questions.length) {
-                questions[currentQuestion].style.display = 'block';
-            } else {
-                document.getElementById('controls').style.display = 'block';
-                canvas.style.display = 'block'; // Show the canvas
-                isRunning = true; // Start square animation
-                animate(); // Start animation loop
-            }
-        });
+        // Show the next question if available
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+            questions[currentQuestion].style.display = 'block';
+        } else {
+            document.getElementById('controls').style.display = 'block';
+            canvas.style.display = 'block'; // Show the canvas
+            isRunning = true; // Start square animation
+            animate(); // Start animation loop
+        }
+
+        // Check if "Sad" button was clicked and set the initial color to blue
+        if (value === 'blue') {
+            squareProperties.color.baseColor = 'blue';
+        }
     });
+});
+
 
     playSymphonyButton.addEventListener('click', () => {
         isRunning = true; // Resume square animation
