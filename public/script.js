@@ -31,6 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // Update square properties based on user's choice
 const property = event.target.getAttribute('data-property');
 const value = event.target.getAttribute('data-value');
+console.log("Selected value:", value); // Log the selected value to check
+
 if (property && value) {
     if (property === 'size' || property === 'speed') {
         squareProperties[property] = parseFloat(value);
@@ -43,7 +45,6 @@ if (property && value) {
         }
     }
 }
-
 
             // Hide the current question
             questions[currentQuestion].style.display = 'none';
