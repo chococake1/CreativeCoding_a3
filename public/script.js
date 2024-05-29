@@ -144,7 +144,7 @@ function playContentSound() {
                 setInterval(() => {
                     const randomSoundIndex = Math.floor(Math.random() * 3) + 1; // Random index between 1 and 3
                     playSound(`sound${randomSoundIndex}.mp3`);
-                }, 3000);
+                }, 4500);
             }
         });
     });
