@@ -125,10 +125,12 @@ let lastPlayedSoundIndex = -1; // Initialize with an invalid index
 
 // Function to play a random sound from soundsData
 function playRandomSound() {
-    let randomIndex;
-    do {
-        randomIndex = Math.floor(Math.random() * soundsData.length);
-    } while (randomIndex === lastPlayedSoundIndex); // Ensure the new random index is different from the last played index
+    if (soundsData.length > 0) {
+        const randomIndex = Math.floor(Math.random() * soundsData.length);
+        const soundSrc = soundsData.splice(randomIndex, 1)[0]; // Remove the sound from soundsData
+        playSound(soundSrc);
+    }
+}
 
 // Function to play sounds 13, 14, or 15 every 3 seconds if the user chooses "Not Bad"
 function playNotBadSound() {
@@ -143,11 +145,12 @@ function playNotBadSound() {
                     playSound(`sound${randomSoundIndex}.mp3`);
                 }, 3000);
             }
+        });
     });
 }
-        lastPlayedSoundIndex = randomIndex; // Update the last played sound index
-    }
-}
+
+// Call the function to play sounds 13, 14, or 15 every 3 seconds if "Not Bad" is chosen
+playNotBadSound();
 
 // Use setInterval to play a random sound every 1 second
 setInterval(playRandomSound, 400);
