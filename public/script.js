@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
     const soundsData = [];
     const questions = document.querySelectorAll('.question');
@@ -22,10 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.answer').forEach(button => {
         button.addEventListener('click', event => {
-            const initialColor = event.target.getAttribute('data-initial-color');
-            if (initialColor) {
-                squareProperties.color.baseColor = initialColor;
-            }
+            const soundSrc1 = event.target.getAttribute('data-sound1');
+            const soundSrc2 = event.target.getAttribute('data-sound2');
+            const soundSrc3 = event.target.getAttribute('data-sound3');
 
             if (soundSrc1) soundsData.push(soundSrc1);
             if (soundSrc2) soundsData.push(soundSrc2);
@@ -39,6 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     squareProperties[property] = parseFloat(value);
                 } else if (property === 'color') {
                     squareProperties.color.baseColor = value;
+                    // Change the color of the starting square
+                    drawSquare(squareX, squareY, squareProperties.size, value);
                 }
             }
 
@@ -163,3 +162,4 @@ function animate() {
 
 
 });
+
