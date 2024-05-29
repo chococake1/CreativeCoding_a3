@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const sounds = [];
+    const soundsData = [];
     const questions = document.querySelectorAll('.question');
     const playSymphonyButton = document.getElementById('playSymphony');
     const stopSymphonyButton = document.getElementById('stopSymphony');
@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.answer').forEach(button => {
         button.addEventListener('click', event => {
-            const sound = new Audio(event.target.getAttribute('data-sound'));
-            sounds.push(sound);
+            const soundSrc = event.target.getAttribute('data-sound');
+            soundsData.push(soundSrc);
 
             // Update square properties based on user's choice
             const property = event.target.getAttribute('data-property');
@@ -51,17 +51,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     playSymphonyButton.addEventListener('click', () => {
-        sounds.forEach(sound => sound.play());
         isRunning = true; // Resume square animation
         animate(); // Continue animation loop
     });
 
     stopSymphonyButton.addEventListener('click', () => {
+        isRunning = false; // Pause square animation
+        // Stop all sounds
+        const sounds = document.querySelectorAll('audio');
         sounds.forEach(sound => {
             sound.pause();
             sound.currentTime = 0;
         });
-        isRunning = false; // Pause square animation
     });
 
     // Set canvas width and height to fill the window
@@ -93,6 +94,12 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fillRect(x, y, size, size); // Draw filled rectangle
     }
 
+    // Function to play a sound
+    function playSound(src) {
+        const sound = new Audio(src);
+        sound.play();
+    }
+
     // Function to animate the square
     function animate() {
         if (!isRunning) return; // Check if animation is paused
@@ -109,10 +116,9 @@ document.addEventListener('DOMContentLoaded', () => {
             trailColors.push(color);
 
             // Play corresponding sound if there is any
-            const soundIndex = (frameCount / colorChangeInterval) % sounds.length;
-            if (sounds[soundIndex]) {
-                sounds[soundIndex].currentTime = 0; // Reset sound to start
-                sounds[soundIndex].play();
+            const soundIndex = (frameCount / colorChangeInterval) % soundsData.length;
+            if (soundsData[soundIndex]) {
+                playSound(soundsData[soundIndex]);
             }
         }
 
