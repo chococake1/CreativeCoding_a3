@@ -35,12 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (property === 'size' || property === 'speed') {
                     squareProperties[property] = parseFloat(value);
                 } else if (property === 'color') {
-                    // Check if user selected "Sad" mood and set square color to blue
-                    if (value.toLowerCase() === 'blue' || value.toLowerCase() === 'sad') {
-                        squareProperties.color.baseColor = 'blue';
-                    } else {
-                        squareProperties.color.baseColor = value;
-                    }
+                    squareProperties.color.baseColor = value;
                 }
             }
 
@@ -106,9 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to play a sound with slight pitch variation
     function playSound(src) {
         const sound = new Audio(src);
-        sound.addEventListener('error', () => {
-            console.error(`Failed to load sound file: ${src}`);
-        });
         const playbackRate = 1 + (Math.random() * 0.1 - 0.05); // Vary the playback rate slightly
         sound.playbackRate = playbackRate;
         sound.play();
@@ -164,3 +156,4 @@ document.addEventListener('DOMContentLoaded', () => {
         // Request next animation frame to continue animation loop
         requestAnimationFrame(animate);
     }
+});
