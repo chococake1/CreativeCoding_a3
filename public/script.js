@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
     const soundsData = [];
     const questions = document.querySelectorAll('.question');
@@ -74,8 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Square properties
     let squareX = Math.random() * (canvas.width - squareProperties.size); // Random starting x position
     let squareY = Math.random() * (canvas.height - squareProperties.size); // Random starting y position
-    let dx = squareProperties.speed * 0.67; // Slow down by about 1/3
-    let dy = squareProperties.speed * 0.67; // Slow down by about 1/3
+    let speed = squareProperties.speed * 0.67; // Slow down by about 1/3
+    let dx = speed * (Math.random() < 0.5 ? -1 : 1); // Move horizontally with equal probability of left or right
+    let dy = speed * (Math.random() < 0.5 ? -1 : 1); // Move vertically with equal probability of up or down
 
     // Color change interval
     const colorChangeInterval = 12; // Change the color every 12 frames to slow down the animation
@@ -124,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Move the square
+        // Move the square diagonally
         squareX += dx; // Move horizontally
         squareY += dy; // Move vertically
 
