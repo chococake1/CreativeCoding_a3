@@ -121,11 +121,19 @@ document.addEventListener('DOMContentLoaded', () => {
         sound.play();
     }
 
-    // Function to play a random sound from soundsData
+let lastPlayedSoundIndex = -1; // Initialize with an invalid index
+
+// Function to play a random sound from soundsData
 function playRandomSound() {
+    let randomIndex;
+    do {
+        randomIndex = Math.floor(Math.random() * soundsData.length);
+    } while (randomIndex === lastPlayedSoundIndex); // Ensure the new random index is different from the last played index
+
+    // Play the selected sound
     if (soundsData.length > 0) {
-        const randomIndex = Math.floor(Math.random() * soundsData.length);
         playSound(soundsData[randomIndex]);
+        lastPlayedSoundIndex = randomIndex; // Update the last played sound index
     }
 }
 
