@@ -77,8 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Square properties
     let squareX = Math.random() * (canvas.width - squareProperties.size); // Random starting x position
     let squareY = Math.random() * (canvas.height - squareProperties.size); // Random starting y position
-    let dx = squareProperties.speed * 0.67; // Slow down by about 1/3
-    let dy = squareProperties.speed * 0.67; // Slow down by about 1/3
+    let dx = squareProperties.speed * 0.67; // Horizontal speed
+    let dy = squareProperties.speed * 0.67; // Vertical speed
 
     // Color change interval
     const colorChangeInterval = 12; // Change the color every 12 frames to slow down the animation
@@ -121,13 +121,13 @@ document.addEventListener('DOMContentLoaded', () => {
             trailColors.push(color);
 
             // Play corresponding sound if there is any
-            const soundIndex = (frameCount / colorChangeInterval) % soundsData.length;
+            const soundIndex = Math.floor((frameCount / colorChangeInterval) % soundsData.length);
             if (soundsData[soundIndex]) {
                 playSound(soundsData[soundIndex]);
             }
         }
 
-        // Move the square
+        // Move the square diagonally
         squareX += dx; // Move horizontally
         squareY += dy; // Move vertically
 
