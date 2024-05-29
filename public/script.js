@@ -86,15 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const y = Math.random() * canvas.height;
             const dx = Math.random() * 2 - 1; // Random horizontal speed between -1 and 1
             const dy = Math.random() * 2 - 1; // Random vertical speed between -1 and 1
-            const color = `hsl(${Math.random() * 360}, 100%, 50%)`; // Random color
+            const color = { hue: Math.random() * 360 }; // Random hue
             squares.push({ x, y, size, dx, dy, color });
         }
-    }
-
-    // Function to draw a square on the canvas
-    function drawSquare(square) {
-        ctx.fillStyle = square.color; // Set fill color
-        ctx.fillRect(square.x, square.y, square.size, square.size); // Draw filled rectangle
     }
 
     // Function to animate the square
@@ -104,9 +98,20 @@ document.addEventListener('DOMContentLoaded', () => {
         // Clear canvas before drawing the next frame
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Draw random squares
+        // Draw and update each square
         squares.forEach(square => {
+            // Generate a random color for the square
+            const hueVariation = Math.random() * 20 - 10; // Slight variation of +/- 10
+            const newHue = (square.color.hue + hueVariation) % 360;
+            square.color.hue = newHue;
+            square.color.value = '100%';
+            square.color.lightness = '50%';
+            const color = `hsl(${newHue}, 100%, 50%)`;
+
+            // Draw the square and its trail
             drawSquare(square);
+            drawTrail(square);
+
             // Move the square
             square.x += square.dx; // Move horizontally
             square.y += square.dy; // Move vertically
@@ -122,5 +127,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Request next animation frame to continue animation loop
         requestAnimationFrame(animate);
+    }
+
+    // Function to draw the square on the canvas
+    function drawSquare(square) {
+        ctx.fillStyle = squareProperties.color.baseColor; // Set fill color
+        ctx.fillRect(square.x, square.y, square.size, square.size); // Draw filled rectangle
+    }
+
+    // Function to draw the trail of the square
+    function drawTrail(square) {
+        const trailColor = `hsla(${square.color.hue}, 100%, 50%, 0.1)`; // Semi-transparent trail color
+        ctx.fillStyle = trailColor; // Set trail fill color
+        ctx.fillRect(square.x, square.y, square.size, square.size); // Draw filled rectangle for trail
     }
 });
