@@ -12,6 +12,14 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: #f0f0f0;
+        }
+        .container {
+            text-align: center;
         }
         #canvas {
             position: absolute;
@@ -22,6 +30,9 @@
             z-index: -1;
             display: none; /* Hide the canvas initially */
         }
+        .question {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -30,9 +41,9 @@
         <div id="questions">
             <div class="question">
                 <p>1. Choose a mood:</p>
-                <button class="answer" data-sound1="sound1.mp3" data-sound2="sound2.mp3" data-sound3="sound3.mp3" data-property="color" data-value="red">Happy</button>
-                <button class="answer" data-sound1="sound4.mp3" data-sound2="sound5.mp3" data-sound3="sound6.mp3" data-property="color" data-value="blue">Sad</button>
-                <button class="answer" data-sound1="sound7.mp3" data-sound2="sound8.mp3" data-sound3="sound9.mp3" data-property="color" data-value="green">Excited</button>
+                <button class="answer" data-sound1="sound1.mp3" data-sound2="sound2.mp3" data-sound3="sound3.mp3" data-property="color" data-value="rgba(255, 0, 0, 0.5)">Happy</button>
+                <button class="answer" data-sound1="sound4.mp3" data-sound2="sound5.mp3" data-sound3="sound6.mp3" data-property="color" data-value="rgba(0, 0, 255, 0.5)">Sad</button>
+                <button class="answer" data-sound1="sound7.mp3" data-sound2="sound8.mp3" data-sound3="sound9.mp3" data-property="color" data-value="rgba(0, 255, 0, 0.5)">Excited</button>
             </div>
             <div class="question">
                 <p>2. Choose an instrument:</p>
