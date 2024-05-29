@@ -77,14 +77,6 @@ if (property && value) {
     });
 });
 
-
-// Add event listener for the "Speed Up Squares" button
-document.getElementById('speedUpSquares').addEventListener('click', () => {
-    // Increase the speed of the squares when the button is clicked
-    squareProperties.speed += 2; // Increase the speed by 2 units (adjust as needed)
-});
-
-
     stopSymphonyButton.addEventListener('click', () => {
         isRunning = false; // Pause square animation
         // Stop all sounds
