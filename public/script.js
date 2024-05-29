@@ -49,8 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 document.getElementById('controls').style.display = 'block';
                 canvas.style.display = 'block'; // Show the canvas
-                isRunning = true; // Start square animation
-                animate(); // Start animation loop
+                createSquare(); // Create the square
             }
         });
     });
@@ -70,27 +69,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Set canvas width and height to fill the window
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    // Function to create the square
+    function createSquare() {
+        // Set canvas width and height to fill the window
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-    // Square properties
-    let squareX = Math.random() * (canvas.width - squareProperties.size); // Random starting x position
-    let squareY = Math.random() * (canvas.height - squareProperties.size); // Random starting y position
-    let dx = squareProperties.speed * 0.67; // Horizontal speed
-    let dy = squareProperties.speed * 0.67; // Vertical speed
+        // Set initial position of the square
+        squareX = Math.random() * (canvas.width - squareProperties.size); // Random starting x position
+        squareY = Math.random() * (canvas.height - squareProperties.size); // Random starting y position
 
-    // Ensure initial diagonal movement direction
-    if (Math.random() > 0.5) dx = -dx; // Randomly start in one diagonal direction
-    if (Math.random() > 0.5) dy = -dy; // Randomly start in one diagonal direction
+        // Set initial diagonal movement direction
+        dx = squareProperties.speed * 0.67; // Horizontal speed
+        dy = squareProperties.speed * 0.67; // Vertical speed
+        if (Math.random() > 0.5) dx = -dx; // Randomly start in one diagonal direction
+        if (Math.random() > 0.5) dy = -dy; // Randomly start in one diagonal direction
 
-    // Color change interval
-    const colorChangeInterval = 12; // Change the color every 12 frames to slow down the animation
-    let frameCount = 0;
-
-    // Array to store previous positions and colors for trail effect
-    const trailPositions = [];
-    const trailColors = [];
+        // Start animation loop
+        isRunning = true;
+        animate();
+    }
 
     // Function to draw a square on the canvas
     function drawSquare(x, y, size, color) {
@@ -109,8 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to animate the square
     function animate() {
         if (!isRunning) return; // Check if animation is paused
-
-        frameCount++; // Increment frame count
 
         // Change color and play sound every colorChangeInterval frames
         if (frameCount % colorChangeInterval === 0) {
@@ -156,6 +152,5 @@ document.addEventListener('DOMContentLoaded', () => {
         // Request next animation frame to continue animation loop
         requestAnimationFrame(animate);
     }
-
 });
 
