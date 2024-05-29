@@ -77,9 +77,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let dx = squareProperties.speed * 0.67; // Slow down by about 1/3
     let dy = squareProperties.speed * 0.67; // Slow down by about 1/3
 
-    // Color change interval
-    const colorChangeInterval = 96; // Change the color every 96 frames to slow down the animation
+    // Color change interval for squares
+    const colorChangeInterval = 24; // Change the color every 24 frames to slow down the animation
     let frameCount = 0;
+
+    // Sound change interval
+    const soundChangeInterval = 96; // Play sound every 96 frames
 
     // Array to store previous positions and colors for trail effect
     const trailPositions = [];
@@ -117,9 +120,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // Add current position and color to arrays for trail effect
             trailPositions.push({ x: squareX, y: squareY });
             trailColors.push(color);
+        }
 
+        // Play sound every soundChangeInterval frames
+        if (frameCount % soundChangeInterval === 0) {
             // Play corresponding sound if there is any
-            const soundIndex = (frameCount / colorChangeInterval) % soundsData.length;
+            const soundIndex = Math.floor(Math.random() * soundsData.length); // Choose a random sound data index
             if (soundsData[soundIndex]) {
                 playSound(soundsData[soundIndex]);
             }
