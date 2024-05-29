@@ -143,7 +143,6 @@ function playNotBadSound() {
                     playSound(`sound${randomSoundIndex}.mp3`);
                 }, 3000);
             }
-        });
     });
 }
         lastPlayedSoundIndex = randomIndex; // Update the last played sound index
