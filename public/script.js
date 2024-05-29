@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const soundsData = [];
     const questions = document.querySelectorAll('.question');
-    // const playyButton = document.getElementById('playSymphony');
-    // const stopSymphonyButton = document.getElementById('stopSymphony');
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     let currentQuestion = 0;
@@ -67,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentQuestion < questions.length) {
                 questions[currentQuestion].style.display = 'block';
             } else {
-                document.getElementById('controls').style.display = 'block';
                 canvas.style.display = 'block'; // Show the canvas
                 isRunning = true; // Start square animation
                 animate(); // Start animation loop
@@ -79,16 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
-    // stopSymphonyButton.addEventListener('click', () => {
-    //     isRunning = false; // Pause square animation
-    //     // Stop all sounds
-    //     const sounds = document.querySelectorAll('audio');
-    //     sounds.forEach(sound => {
-    //         sound.pause();
-    //         sound.currentTime = 0;
-    //     });
-    // });
 
     // Set canvas width and height to fill the window
     canvas.width = window.innerWidth;
@@ -159,8 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (squareX + squareProperties.size > canvas.width || squareX < 0) {
             dx = -dx; // Reverse horizontal direction
         }
-        if (squareY + squareProperties.size > canvas.height || squareY < 0
-) {
+        if (squareY + squareProperties.size > canvas.height || squareY < 0) {
             dy = -dy; // Reverse vertical direction
         }
 
