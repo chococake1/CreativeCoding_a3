@@ -22,9 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.answer').forEach(button => {
         button.addEventListener('click', event => {
-            const soundSrc1 = event.target.getAttribute('data-sound1');
-            const soundSrc2 = event.target.getAttribute('data-sound2');
-            const soundSrc3 = event.target.getAttribute('data-sound3');
+            const initialColor = event.target.getAttribute('data-initial-color');
+            if (initialColor) {
+                squareProperties.color.baseColor = initialColor;
+            }
 
             if (soundSrc1) soundsData.push(soundSrc1);
             if (soundSrc2) soundsData.push(soundSrc2);
