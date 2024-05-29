@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 questions[currentQuestion].style.display = 'block';
             } else {
                 // All questions answered, start animation
-                initializeSquare();
+                initializeSquare(); // Moved inside else block
             }
         });
     });
