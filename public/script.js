@@ -42,7 +42,8 @@ if (property && value) {
             // Set base color to yellow if "Excited" button is clicked
             squareProperties.color = { baseColor: 'yellow', hue: 60 }; // Assuming hue 60 for yellow
         } else {
-            squareProperties.color = { baseColor: value, hue: 0 };
+            squareProperties.color.baseColor = value;
+            squareProperties.color.hue = 0;
         }
     }
 }
