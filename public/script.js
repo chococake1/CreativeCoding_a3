@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Default square properties
     let squareProperties = {
         color: 'black',
-        size: 240,
-        speed: 8
+        size: 40,
+        speed: 4
     };
 
     // Show the first question
@@ -86,6 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const square = {
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
+                dx: squareProperties.speed * (Math.random() - 0.5),
+                dy: squareProperties.speed * (Math.random() - 0.5),
                 color: squareProperties.color === 'random' ? randomColor() : squareProperties.color
             };
             squares.push(square);
@@ -105,8 +107,21 @@ document.addEventListener('DOMContentLoaded', () => {
         // Clear canvas before drawing the next frame
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Draw squares
-        squares.forEach(drawSquare);
+        // Move and draw squares
+        squares.forEach(square => {
+            square.x += square.dx;
+            square.y += square.dy;
+
+            // Bounce off the canvas edges
+            if (square.x <= 0 || square.x + squareProperties.size >= canvas.width) {
+                square.dx = -square.dx;
+            }
+            if (square.y <= 0 || square.y + squareProperties.size >= canvas.height) {
+                square.dy = -square.dy;
+            }
+
+            drawSquare(square);
+        });
 
         // Request next animation frame to continue animation loop
         requestAnimationFrame(animate);
