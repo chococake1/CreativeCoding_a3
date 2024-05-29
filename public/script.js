@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const soundsData = [];
     const questions = document.querySelectorAll('.question');
-    const playSymphonyButton = document.getElementById('playSymphony');
-    const stopSymphonyButton = document.getElementById('stopSymphony');
+    // const playSymphonyButton = document.getElementById('playSymphony');
+    // const stopSymphonyButton = document.getElementById('stopSymphony');
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     let currentQuestion = 0;
