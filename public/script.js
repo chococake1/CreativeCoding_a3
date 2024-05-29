@@ -77,22 +77,8 @@ if (property && value) {
     });
 });
 
-    let isRunning = false; // Boolean variable to control animation
-    let isPaused = false; // Boolean variable to track if animation is paused
-
-    playSymphonyButton.addEventListener('click', () => {
-        if (!isRunning) {
-            isRunning = true; // Start animation if not already running
-            animate(); // Start animation loop
-        } else if (isPaused) {
-            isPaused = false; // Resume animation if paused
-            animate(); // Resume animation loop
-        }
-    });
-
     stopSymphonyButton.addEventListener('click', () => {
-        isRunning = false; // Pause animation
-        isPaused = true; // Mark animation as paused
+        isRunning = false; // Pause square animation
         // Stop all sounds
         const sounds = document.querySelectorAll('audio');
         sounds.forEach(sound => {
