@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         frameCount++; // Increment frame count
 
         // Change color and play sound every colorChangeInterval frames
-        if (frameCount % colorChangeInterval === 0) {
+        if (frameCount % (colorChangeInterval * 2) === 0) {
             // Generate a random color for the square
             const hueVariation = Math.random() * 20 - 10; // Slight variation of +/- 10
             const newHue = (squareProperties.color.hue + hueVariation) % 360;
