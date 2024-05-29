@@ -244,7 +244,7 @@ function playLittleTiredSound() {
                 setInterval(() => {
                     const randomSoundIndex = Math.floor(Math.random() * 3) + 22; // Random index between 22 and 24
                     playSound(`sound${randomSoundIndex}.mp3`);
-                }, 700);
+                }, 950);
             }
         });
     });
