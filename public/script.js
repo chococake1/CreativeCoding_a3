@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let dy = squareProperties.speed * 0.67; // Slow down by about 1/3
 
     // Color change interval
-    const colorChangeInterval = 24; // Change the color every 24 frames to slow down the animation
+    const colorChangeInterval = 96; // Change the color every 96 frames to slow down the animation
     let frameCount = 0;
 
     // Array to store previous positions and colors for trail effect
