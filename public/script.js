@@ -147,8 +147,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Move the square diagonally
-        squareX += dx; // Move horizontally
-        squareY += dy; // Move vertically
+        const speedFactor = Math.sqrt(squareProperties.speed * squareProperties.speed / 2); // Adjust speed for diagonal movement
+        squareX += dx * speedFactor; // Move horizontally
+        squareY += dy * speedFactor; // Move vertically
 
         // Bounce off the edges if the square hits the canvas boundaries
         if (squareX + squareProperties.size > canvas.width || squareX < 0) {
