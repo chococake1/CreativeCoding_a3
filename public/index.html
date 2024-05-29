@@ -26,13 +26,13 @@
     <div id="questions">
         <div class="question">
             <p>Question 1: Choose a sound</p>
-            <button class="answer" data-sound="sound1.mp3" data-property="color" data-value="hsl(0, 100%, 50%)">Sound 1</button>
-            <button class="answer" data-sound="sound2.mp3" data-property="color" data-value="hsl(120, 100%, 50%)">Sound 2</button>
+            <button class="answer" data-property="color" data-value="hsl(0, 100%, 50%)">Sound 1</button>
+            <button class="answer" data-property="color" data-value="hsl(120, 100%, 50%)">Sound 2</button>
         </div>
         <div class="question">
             <p>Question 2: Choose a size</p>
-            <button class="answer" data-sound="sound3.mp3" data-property="size" data-value="150">Small</button>
-            <button class="answer" data-sound="sound4.mp3" data-property="size" data-value="300">Large</button>
+            <button class="answer" data-property="size" data-value="150">Small</button>
+            <button class="answer" data-property="size" data-value="300">Large</button>
         </div>
         <!-- Add more questions as needed -->
     </div>
@@ -44,7 +44,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const soundsData = [];
+            const soundsData = ['sound1.mp3', 'sound2.mp3', 'sound3.mp3', 'sound4.mp3']; // Array of sound sources
             const questions = document.querySelectorAll('.question');
             const playSymphonyButton = document.getElementById('playSymphony');
             const stopSymphonyButton = document.getElementById('stopSymphony');
@@ -65,9 +65,6 @@
 
             document.querySelectorAll('.answer').forEach(button => {
                 button.addEventListener('click', event => {
-                    const soundSrc = event.target.getAttribute('data-sound');
-                    soundsData.push(soundSrc);
-
                     // Update square properties based on user's choice
                     const property = event.target.getAttribute('data-property');
                     const value = event.target.getAttribute('data-value');
@@ -134,11 +131,11 @@
                 ctx.fillRect(x, y, size, size); // Draw filled rectangle
             }
 
-            // Function to play a sound with slight pitch variation
-            function playSound(src) {
-                const sound = new Audio(src);
-                const playbackRate = 1 + (Math.random() * 0.1 - 0.05); // Vary the playback rate slightly
-                sound.playbackRate = playbackRate;
+            // Function to play a random sound from the array
+            function playRandomSound() {
+                const randomIndex = Math.floor(Math.random() * soundsData.length);
+                const soundSrc = soundsData[randomIndex];
+                const sound = new Audio(soundSrc);
                 sound.play();
             }
 
@@ -160,11 +157,8 @@
                     trailPositions.push({ x: squareX, y: squareY });
                     trailColors.push(color);
 
-                    // Play corresponding sound if there is any
-                    const soundIndex = (frameCount / colorChangeInterval) % soundsData.length;
-                    if (soundsData[soundIndex]) {
-                        playSound(soundsData[soundIndex]);
-                    }
+                    // Play a random sound
+                    playRandomSound();
                 }
 
                 // Move the square
