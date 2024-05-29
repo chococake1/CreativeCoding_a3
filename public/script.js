@@ -40,8 +40,26 @@ if (property && value) {
         // Check if user selected "Sad" mood and set square color to blue
         if (value.toLowerCase() === 'blue' || value.toLowerCase() === 'sad') {
             squareProperties.color.baseColor = 'blue';
+            // Do not push sound files for "blue" color
+            if (value.toLowerCase() !== 'blue') {
+                if (value.toLowerCase() === 'sad') {
+                    const soundSrc1 = event.target.getAttribute('data-sound1');
+                    const soundSrc2 = event.target.getAttribute('data-sound2');
+                    const soundSrc3 = event.target.getAttribute('data-sound3');
+                    if (soundSrc1) soundsData.push(soundSrc1);
+                    if (soundSrc2) soundsData.push(soundSrc2);
+                    if (soundSrc3) soundsData.push(soundSrc3);
+                }
+            }
         } else {
             squareProperties.color.baseColor = value;
+            // Push sound files for other colors
+            const soundSrc1 = event.target.getAttribute('data-sound1');
+            const soundSrc2 = event.target.getAttribute('data-sound2');
+            const soundSrc3 = event.target.getAttribute('data-sound3');
+            if (soundSrc1) soundsData.push(soundSrc1);
+            if (soundSrc2) soundsData.push(soundSrc2);
+            if (soundSrc3) soundsData.push(soundSrc3);
         }
     }
 }
