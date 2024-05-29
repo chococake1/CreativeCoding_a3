@@ -1,3 +1,5 @@
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const soundsData = [];
     const questions = document.querySelectorAll('.question');
@@ -137,8 +139,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Clear canvas before drawing the next frame
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Draw square at current position
-        drawSquare(squareX, squareY, squareProperties.size, trailColors[0]);
+        // Draw trail
+        for (let i = 0; i < trailPositions.length; i++) {
+            const { x, y } = trailPositions[i]; // Get position from array
+            const color = trailColors[i]; // Get color from array
+            drawSquare(x, y, squareProperties.size, color); // Draw square at position with color
+        }
 
         // Request next animation frame to continue animation loop
         requestAnimationFrame(animate);
