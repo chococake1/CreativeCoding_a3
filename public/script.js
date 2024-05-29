@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     squareProperties[property] = parseFloat(value);
                 } else if (property === 'color') {
                     // Check if user selected "Sad" mood and set square color to blue
-                    if (value === 'Sad') {
+                    if (value.toLowerCase() === 'sad') {
                         squareProperties.color.baseColor = 'blue';
                     } else {
                         squareProperties.color.baseColor = value;
@@ -119,9 +119,9 @@ document.addEventListener('DOMContentLoaded', () => {
         function animate() {
             if (!isRunning) return; // Check if animation is paused
 
-            frameCount++; // Increment frame
+            frameCount++; // Increment frame count
 
-        // Change color and play sound every colorChangeInterval frames
+            // Change color and play sound every colorChangeInterval frames
             if (frameCount % colorChangeInterval === 0) {
                 // Generate a random color for the square
                 const hueVariation = Math.random() * 20 - 10; // Slight variation of +/- 10
