@@ -132,7 +132,10 @@ function playRandomSound() {
     }
 }
 
-// Function to play sounds 13, 14, or 15 every 3 seconds if the user chooses "Not Bad"
+// Use setInterval to play a random sound every 1 second
+setInterval(playRandomSound, 400);
+
+    // Function to play sounds 13, 14, or 15 every 3 seconds if the user chooses "Not Bad"
 function playNotBadSound() {
     const notBadButtons = document.querySelectorAll('.answer[data-value="240"]');
     notBadButtons.forEach(button => {
@@ -151,9 +154,6 @@ function playNotBadSound() {
 
 // Call the function to play sounds 13, 14, or 15 every 3 seconds if "Not Bad" is chosen
 playNotBadSound();
-
-// Use setInterval to play a random sound every 1 second
-setInterval(playRandomSound, 400);
     
     // Function to animate the square
     function animate() {
