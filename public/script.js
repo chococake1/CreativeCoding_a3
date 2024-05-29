@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
     const soundsData = [];
     const questions = document.querySelectorAll('.question');
@@ -81,10 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const colorChangeInterval = 12; // Change the color every 12 frames to slow down the animation
     let frameCount = 0;
 
-    // Array to store previous positions and colors for trail effect
-    const trailPositions = [];
-    const trailColors = [];
-
     // Function to generate a random color
     function randomColor() {
         return '#' + Math.floor(Math.random() * 16777215).toString(16);
@@ -111,7 +105,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Change color and play sound every colorChangeInterval frames
         if (frameCount % colorChangeInterval === 0) {
             // Generate a random color for the square
-            const color = squareProperties.color === 'random' ? randomColor() : squareProperties.color;
+            let hue = (frameCount / colorChangeInterval) % 360;
+            const color = `hsl(${hue}, 100%, 50%)`;
 
             // Add current position and color to arrays for trail effect
             trailPositions.push({ x: squareX, y: squareY });
