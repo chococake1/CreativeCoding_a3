@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
     const soundsData = [];
     const questions = document.querySelectorAll('.question');
@@ -22,8 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.answer').forEach(button => {
         button.addEventListener('click', event => {
-            const soundSrc = event.target.getAttribute('data-sound');
-            soundsData.push(soundSrc);
+            const soundSrc1 = event.target.getAttribute('data-sound1');
+            const soundSrc2 = event.target.getAttribute('data-sound2');
+            const soundSrc3 = event.target.getAttribute('data-sound3');
+
+            if (soundSrc1) soundsData.push(soundSrc1);
+            if (soundSrc2) soundsData.push(soundSrc2);
+            if (soundSrc3) soundsData.push(soundSrc3);
 
             // Update square properties based on user's choice
             const property = event.target.getAttribute('data-property');
