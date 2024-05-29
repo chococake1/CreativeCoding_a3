@@ -209,6 +209,26 @@ function playSleepySound() {
     });
 }
 
+    // Function to play sounds 16, 17, or 18 every 3 seconds if the user chooses "Bleh :p"
+function playBlehSound() {
+    const blehButtons = document.querySelectorAll('.answer[data-value="180"]');
+    blehButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Check if the clicked button has value "180" (Bleh :p)
+            if (button.getAttribute('data-value') === "180") {
+                // Set interval to play sounds 16, 17, or 18 every 3 seconds
+                setInterval(() => {
+                    const randomSoundIndex = Math.floor(Math.random() * 3) + 16; // Random index between 16 and 18
+                    playSound(`sound${randomSoundIndex}.mp3`);
+                }, 3000);
+            }
+        });
+    });
+}
+
+// Call the function to play sounds 16, 17, or 18 every 3 seconds if "Bleh :p" is chosen
+playBlehSound();
+
 // Call the function to play sounds 25, 26, or 27 every 2.7 seconds if "Sleeepy" is chosen
 playSleepySound();
     
