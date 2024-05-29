@@ -51,16 +51,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         squareProperties.color.baseColor = value;
                         squareProperties.color.hue = 0;
                     }
-                }
-                else if (property === 'squares') {
-                    if (value === "1") { // Not tired at all
+                } else if (property === 'squares') {
+                    if (value === "1") {
                         squareProperties.size *= 0.4;
-                        squareProperties.speed *= 0.8;
-                    } else if (value === "2") { // A little tired
+                        squareProperties.speed *= 1.6;
+                    } else if (value === "2") {
                         squareProperties.size *= 0.7;
                         squareProperties.speed *= 1.3;
-                    } else if (value === "3") { // Exhausted
-                        squareProperties.speed *= 1.6;
+                    } else if (value === "3") {
+                        // For "Not tired at all", increase speed by 50%
+                        squareProperties.speed *= 1.5;
                     }
                 }
             }
@@ -164,7 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Draw trail
         for (let i = 0; i < trailPositions.length; i++) {
             const { x, y } = trailPositions[i]; // Get position from array
-            const color = trailColors[i]; // Get color from array
+            const color = trail
+Positions[i]; // Get color from array
             drawSquare(x, y, squareProperties.size, color); // Draw square at position with color
         }
 
