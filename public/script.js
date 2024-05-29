@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentQuestion = 0;
     let isRunning = false; // Boolean variable to control animation
     let chosenSounds = []; // Array to store chosen sounds
-    let chosenColors = []; // Array to store chosen colors
 
     // Default square properties
     let squareProperties = {
@@ -28,19 +27,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 event.target.getAttribute('data-sound3')
             ]);
 
-            // Add the chosen color to the array
-            const color = event.target.getAttribute('data-value');
-            if (color) {
-                chosenColors.push(color);
-            }
-
             // Update square properties based on user's choice
             const property = event.target.getAttribute('data-property');
             const value = event.target.getAttribute('data-value');
             if (property && value) {
                 if (property === 'size' || property === 'speed') {
                     squareProperties[property] = parseFloat(value);
-                } else if (property === 'color') {
+                } else {
                     squareProperties[property] = value;
                 }
             }
@@ -87,36 +80,28 @@ document.addEventListener('DOMContentLoaded', () => {
     let dy = squareProperties.speed * 0.67; // Slow down by about 1/3
 
     // Color change interval
-    const colorChangeInterval = 60; // Change the color every 60 frames
+    const colorChangeInterval = 12; // Change the color every 12 frames to slow down the animation
     let frameCount = 0;
+
+    // Function to generate a random color
+    function randomColor() {
+        return '#' + Math.floor(Math.random() * 16777215).toString(16);
+    }
+
+    // Function to draw a square on the canvas
+    function drawSquare(x, y, size, color) {
+        ctx.fillStyle = color; // Set fill color
+        ctx.fillRect(x, y, size, size); // Draw filled rectangle
+    }
 
     // Function to play a random sound from the chosen sounds
     function playRandomSound() {
         if (chosenSounds.length > 0) {
             const randomIndex = Math.floor(Math.random() * 3); // Random index between 0 and 2
-            const sound = new Audio(chosenSounds[Math.floor(Math.random() * chosenSounds.length)][randomIndex]);
+            const sound = new Audio(chosenSounds[currentQuestion - 1][randomIndex]);
             sound.play();
         }
     }
-
-    // Function to change the background color slowly
-    function changeBackgroundColor() {
-        const gradientColors = chosenColors.map(color => `${color} 25%`).join(', ');
-        document.body.style.background = `linear-gradient(270deg, ${gradientColors})`;
-        document.body.style.backgroundSize = '400% 400%';
-        document.body.style.animation = 'gradient 15s ease infinite';
-    }
-
-    // Keyframes for gradient animation
-    const style = document.createElement('style');
-    style.innerHTML = `
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-    `;
-    document.head.appendChild(style);
 
     // Function to animate the square
     function animate() {
@@ -130,26 +115,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Move the square diagonally
-        squareX += dx;
-        squareY += dy;
+        squareX += dx; // Move horizontally
+        squareY += dy; // Move vertically
 
-        // Check for collision with canvas edges and bounce back
+        // Bounce off the edges if the square hits the canvas boundaries
         if (squareX + squareProperties.size > canvas.width || squareX < 0) {
-            dx = -dx;
+            dx = -dx; // Reverse horizontal direction
         }
         if (squareY + squareProperties.size > canvas.height || squareY < 0) {
-            dy = -dy;
+            dy = -dy; // Reverse vertical direction
         }
 
-        // Clear the canvas
+        // Clear canvas before drawing the next frame
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Draw the square with current properties
-        ctx.fillStyle = squareProperties.color;
-        ctx.fillRect(squareX, squareY, squareProperties.size, squareProperties.size);
-
-        // Change the background color slowly
-        changeBackgroundColor();
+        // Draw the square
+        drawSquare(squareX, squareY, squareProperties.size, squareProperties.color);
 
         // Request next animation frame to continue animation loop
         requestAnimationFrame(animate);
