@@ -138,10 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Bounce off the edges if the square hits the canvas boundaries
         if (squareX + squareProperties.size > canvas.width || squareX < 0) {
             dx = -dx; // Reverse horizontal direction
-            dy = -dy; // Reverse vertical direction
         }
         if (squareY + squareProperties.size > canvas.height || squareY < 0) {
-            dx = -dx; // Reverse horizontal direction
             dy = -dy; // Reverse vertical direction
         }
 
@@ -154,6 +152,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const color = trailColors[i]; // Get color from array
             drawSquare(x, y, squareProperties.size, color); // Draw square at position with color
         }
+
+        // Draw the current square
+        drawSquare(squareX, squareY, squareProperties.size, squareProperties.color.baseColor);
 
         // Request next animation frame to continue animation loop
         requestAnimationFrame(animate);
