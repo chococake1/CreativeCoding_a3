@@ -274,17 +274,21 @@ playSleepySound();
             dy = -dy; // Reverse vertical direction
         }
 
-        // Clear canvas before drawing the next frame
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+// Clear canvas before drawing the next frame
+ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Draw trail
-        for (let i = 0; i < trailPositions.length; i++) {
-            const { x, y } = trailPositions[i]; // Get position from array
-            const color = trailColors[i]; // Get color from array
-            drawSquare(x, y, squareProperties.size, color); // Draw square at position with color
-        }
+// Draw trail
+for (let i = 0; i < trailPositions.length; i++) {
+    const { x, y } = trailPositions[i]; // Get position from array
+    const color = trailColors[i]; // Get color from array
+    drawSquare(x, y, squareProperties.size, color); // Draw square at position with color
+}
 
-        // Request next animation frame to continue animation loop
-        requestAnimationFrame(animate);
+// Draw the current square
+drawSquare(squareX, squareY, squareProperties.size, squareProperties.color.baseColor);
+
+// Request next animation frame to continue animation loop
+requestAnimationFrame(animate);
+
     }
 });
