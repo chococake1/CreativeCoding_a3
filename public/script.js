@@ -130,9 +130,22 @@ function playRandomSound() {
         randomIndex = Math.floor(Math.random() * soundsData.length);
     } while (randomIndex === lastPlayedSoundIndex); // Ensure the new random index is different from the last played index
 
-    // Play the selected sound
-    if (soundsData.length > 0) {
-        playSound(soundsData[randomIndex]);
+// Function to play sounds 13, 14, or 15 every 3 seconds if the user chooses "Not Bad"
+function playNotBadSound() {
+    const notBadButtons = document.querySelectorAll('.answer[data-value="240"]');
+    notBadButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Check if the clicked button has value "240" (Not Bad)
+            if (button.getAttribute('data-value') === "240") {
+                // Set interval to play sounds 13, 14, or 15 every 3 seconds
+                setInterval(() => {
+                    const randomSoundIndex = Math.floor(Math.random() * 3) + 13; // Random index between 13 and 15
+                    playSound(`sound${randomSoundIndex}.mp3`);
+                }, 3000);
+            }
+        });
+    });
+}
         lastPlayedSoundIndex = randomIndex; // Update the last played sound index
     }
 }
