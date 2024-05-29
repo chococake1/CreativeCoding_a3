@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const soundsData = [];
     const questions = document.querySelectorAll('.question');
-    const playSymphonyButton = document.getElementById('playSymphony');
+    const playSymphonyButton = document.getElementById('speedUpSquares');
     const stopSymphonyButton = document.getElementById('stopSymphony');
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
