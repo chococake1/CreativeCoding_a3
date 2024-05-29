@@ -143,10 +143,8 @@ function animate() {
         dy = -dy; // Reverse vertical direction
     }
 
-    // Clear canvas only when the square is moving
-    if (dx !== 0 || dy !== 0) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
+    // Clear canvas before drawing the next frame
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Draw trail
     for (let i = 0; i < trailPositions.length; i++) {
@@ -155,14 +153,10 @@ function animate() {
         drawSquare(x, y, squareProperties.size, color); // Draw square at position with color
     }
 
-    // Draw the current square if it's moving
-    if (dx !== 0 || dy !== 0) {
-        drawSquare(squareX, squareY, squareProperties.size, squareProperties.color.baseColor);
-    }
-
     // Request next animation frame to continue animation loop
     requestAnimationFrame(animate);
 }
+
 
 
 });
