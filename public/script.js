@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Default square properties
     let squareProperties = {
-        color: 'black',
+        color: { baseColor: 'hsl(0, 100%, 50%)', hue: 0 },
         size: 240,
         speed: 8
     };
@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (property && value) {
                 if (property === 'size' || property === 'speed') {
                     squareProperties[property] = parseFloat(value);
-                } else {
-                    squareProperties[property] = value;
+                } else if (property === 'color') {
+                    squareProperties.color.baseColor = value;
                 }
             }
 
@@ -72,9 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Square properties
     let squareX = Math.random() * (canvas.width - squareProperties.size); // Random starting x position
     let squareY = Math.random() * (canvas.height - squareProperties.size); // Random starting y position
-    let speed = squareProperties.speed * 0.67; // Slow down by about 1/3
-    let dx = speed * (Math.random() < 0.5 ? -1 : 1); // Move horizontally with equal probability of left or right
-    let dy = speed * (Math.random() < 0.5 ? -1 : 1); // Move vertically with equal probability of up or down
+    let dx = squareProperties.speed * 0.67; // Slow down by about 1/3
+    let dy = squareProperties.speed * 0.67; // Slow down by about 1/3
 
     // Color change interval
     const colorChangeInterval = 12; // Change the color every 12 frames to slow down the animation
@@ -84,20 +83,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const trailPositions = [];
     const trailColors = [];
 
-    // Function to generate a random color
-    function randomColor() {
-        return '#' + Math.floor(Math.random() * 16777215).toString(16);
-    }
-
     // Function to draw a square on the canvas
     function drawSquare(x, y, size, color) {
         ctx.fillStyle = color; // Set fill color
         ctx.fillRect(x, y, size, size); // Draw filled rectangle
     }
 
-    // Function to play a sound
+    // Function to play a sound with slight pitch variation
     function playSound(src) {
         const sound = new Audio(src);
+        const playbackRate = 1 + (Math.random() * 0.1 - 0.05); // Vary the playback rate slightly
+        sound.playbackRate = playbackRate;
         sound.play();
     }
 
@@ -110,7 +106,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Change color and play sound every colorChangeInterval frames
         if (frameCount % colorChangeInterval === 0) {
             // Generate a random color for the square
-            const color = squareProperties.color === 'random' ? randomColor() : squareProperties.color;
+            const hueVariation = Math.random() * 20 - 10; // Slight variation of +/- 10
+            const newHue = (squareProperties.color.hue + hueVariation) % 360;
+            squareProperties.color.hue = newHue;
+            const color = `hsl(${newHue}, 100%, 50%)`;
 
             // Add current position and color to arrays for trail effect
             trailPositions.push({ x: squareX, y: squareY });
@@ -123,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Move the square diagonally
+        // Move the square
         squareX += dx; // Move horizontally
         squareY += dy; // Move vertically
 
