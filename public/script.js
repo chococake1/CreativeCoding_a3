@@ -136,8 +136,8 @@ function playRandomSound() {
 // setInterval(playRandomSound, 400);
 
     // Function to play sounds 7, 8, or 9 every 2 seconds if the user chooses "Lil Sad"
-function playNotBadSound() {
-    const notBadButtons = document.querySelectorAll('.answer[data-value="blue"]');
+function lilSad() {
+    const lilSad = document.querySelectorAll('.answer[data-value="blue"]');
     notBadButtons.forEach(button => {
         button.addEventListener('click', () => {
             // Check if the clicked button has value "blue" (Lil Sad)
