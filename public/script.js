@@ -120,10 +120,10 @@ document.addEventListener('DOMContentLoaded', () => {
             trailPositions.push({ x: squareX, y: squareY });
             trailColors.push(color);
 
-            // Play corresponding sound if there is any
-            const soundIndex = Math.floor((frameCount / colorChangeInterval) % soundsData.length);
-            if (soundsData[soundIndex]) {
-                playSound(soundsData[soundIndex]);
+            // Play a random sound from the soundsData array
+            if (soundsData.length > 0) {
+                const randomIndex = Math.floor(Math.random() * soundsData.length);
+                playSound(soundsData[randomIndex]);
             }
         }
 
