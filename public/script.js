@@ -71,89 +71,60 @@ document.addEventListener('DOMContentLoaded', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    // Square properties
-    let squareX = Math.random() * (canvas.width - squareProperties.size); // Random starting x position
-    let squareY = Math.random() * (canvas.height - squareProperties.size); // Random starting y position
-    let dx = squareProperties.speed * 0.67; // Slow down by about 1/3
-    let dy = squareProperties.speed * 0.67; // Slow down by about 1/3
+    // Array to store squares
+    const squares = [];
 
-    // Color change interval for squares
-    const colorChangeInterval = 24; // Change the color every 24 frames to slow down the animation
-    let frameCount = 0;
-
-    // Sound change interval
-    const soundChangeInterval = 96; // Play sound every 96 frames
-
-    // Array to store previous positions and colors for trail effect
-    const trailPositions = [];
-    const trailColors = [];
+    // Function to create a square
+    function createSquare() {
+        return {
+            x: Math.random() * (canvas.width - squareProperties.size),
+            y: Math.random() * (canvas.height - squareProperties.size),
+            dx: squareProperties.speed * (Math.random() * 2 - 1), // Random horizontal velocity
+            dy: squareProperties.speed * (Math.random() * 2 - 1), // Random vertical velocity
+        };
+    }
 
     // Function to draw a square on the canvas
-    function drawSquare(x, y, size, color) {
-        ctx.fillStyle = color; // Set fill color
-        ctx.fillRect(x, y, size, size); // Draw filled rectangle
+    function drawSquare(square) {
+        ctx.fillStyle = squareProperties.color.baseColor; // Set fill color
+        ctx.fillRect(square.x, square.y, squareProperties.size, squareProperties.size); // Draw filled rectangle
     }
 
-    // Function to play a random sound from a set of three with slight pitch variation
-    function playSound(sounds) {
-        const randomIndex = Math.floor(Math.random() * 3); // Generate a random index (0, 1, or 2)
-        const sound = new Audio(sounds[randomIndex]);
-        const playbackRate = 0.5 + (Math.random() * 0.1 - 0.05); // Vary the playback rate slightly (slower)
-        sound.playbackRate = playbackRate;
-        sound.play();
-    }
-
-    // Function to animate the square
+    // Function to animate the squares
     function animate() {
         if (!isRunning) return; // Check if animation is paused
-
-        frameCount++; // Increment frame count
-
-        // Change color and play sound every colorChangeInterval frames
-        if (frameCount % colorChangeInterval === 0) {
-            // Generate a random color for the square
-            const hueVariation = Math.random() * 20 - 10; // Slight variation of +/- 10
-            const newHue = (squareProperties.color.hue + hueVariation) % 360;
-            squareProperties.color.hue = newHue;
-            const color = `hsl(${newHue}, 100%, 50%)`;
-
-            // Add current position and color to arrays for trail effect
-            trailPositions.push({ x: squareX, y: squareY });
-            trailColors.push(color);
-        }
-
-        // Play sound every soundChangeInterval frames
-        if (frameCount % soundChangeInterval === 0) {
-            // Play corresponding sound if there is any
-            const soundIndex = Math.floor(Math.random() * soundsData.length); // Choose a random sound data index
-            if (soundsData[soundIndex]) {
-                playSound(soundsData[soundIndex]);
-            }
-        }
-
-        // Move the square
-        squareX += dx; // Move horizontally
-        squareY += dy; // Move vertically
-
-        // Bounce off the edges if the square hits the canvas boundaries
-        if (squareX + squareProperties.size > canvas.width || squareX < 0) {
-            dx = -dx; // Reverse horizontal direction
-        }
-        if (squareY + squareProperties.size > canvas.height || squareY < 0) {
-            dy = -dy; // Reverse vertical direction
-        }
 
         // Clear canvas before drawing the next frame
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Draw trail
-        for (let i = 0; i < trailPositions.length; i++) {
-            const { x, y } = trailPositions[i]; // Get position from array
-            const color = trailColors[i]; // Get color from array
-            drawSquare(x, y, squareProperties.size, color); // Draw square at position with color
-        }
+        // Draw each square and update its position
+        squares.forEach(square => {
+            // Draw trail
+            const color = `hsl(${squareProperties.color.hue}, 100%, 50%)`;
+            drawSquare(square);
+
+            // Move the square
+            square.x += square.dx; // Move horizontally
+            square.y += square.dy; // Move vertically
+
+            // Bounce off the edges if the square hits the canvas boundaries
+            if (square.x + squareProperties.size > canvas.width || square.x < 0) {
+                square.dx = -square.dx; // Reverse horizontal direction
+            }
+            if (square.y + squareProperties.size > canvas.height || square.y < 0) {
+                square.dy = -square.dy; // Reverse vertical direction
+            }
+        });
 
         // Request next animation frame to continue animation loop
         requestAnimationFrame(animate);
+    }
+
+    // Create squares based on user's answers
+    function createSquares(numSquares) {
+        squares.length = 0; // Clear existing squares
+        for (let i = 0; i < numSquares; i++) {
+            squares.push(createSquare());
+        }
     }
 });
