@@ -36,8 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     squareProperties[property] = parseFloat(value);
                 } else if (property === 'color') {
                     squareProperties.color.baseColor = value;
-                    // Change the color of the starting square
-                    drawSquare(squareX, squareY, squareProperties.size, value);
                 }
             }
 
