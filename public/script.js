@@ -141,7 +141,7 @@ function lilSad() {
     lilSadButtons.forEach(button => {
         button.addEventListener('click', () => {
             // Check if the clicked button has value "blue" (Lil Sad)
-            if (button.getAttribute('data-value') === "240") {
+            if (button.getAttribute('data-value') === "blue") {
                 // Set interval to play sounds 7, 8, or 9 every 2 seconds
                 setInterval(() => {
                     const randomSoundIndex = Math.floor(Math.random() * 3) + 7; // Random index between 13 and 15
