@@ -135,10 +135,12 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fillRect(square.x, square.y, square.size, square.size); // Draw filled rectangle
     }
 
-    // Function to draw the trail of the square
-    function drawTrail(square) {
-        const trailColor = `hsla(${square.color.hue}, 100%, 50%, 0.1)`; // Semi-transparent trail color
-        ctx.fillStyle = trailColor; // Set trail fill color
-        ctx.fillRect(square.x, square.y, square.size, square.size); // Draw filled rectangle for trail
-    }
+// Function to draw the trail of the square
+function drawTrail(square) {
+    const trailColor = `hsla(${square.color.hue}, 100%, 50%, 0.1)`; // Semi-transparent trail color
+    ctx.fillStyle = trailColor; // Set trail fill color
+    const trailSize = square.size * 1.5; // Increase trail size for better visibility
+    ctx.fillRect(square.x - trailSize / 2, square.y - trailSize / 2, square.size + trailSize, square.size + trailSize); // Draw filled rectangle for trail
+}
+
 });
