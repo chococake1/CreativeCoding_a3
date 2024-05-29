@@ -121,4 +121,24 @@ document.addEventListener('DOMContentLoaded', () => {
         squareY += dy; // Move vertically
 
         // Bounce off the edges if the square hits the canvas boundaries
-        if (squareX + squareProperties.size > canvas.width || squareX <
+        if (squareX + squareProperties.size > canvas.width || squareX < 0) {
+            dx = -dx; // Reverse horizontal direction
+        }
+        if (squareY + squareProperties.size > canvas.height || squareY < 0) {
+            dy = -dy; // Reverse vertical direction
+        }
+
+        // Clear canvas before drawing the next frame
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw trail
+        for (let i = 0; i < trailPositions.length; i++) {
+            const { x, y } = trailPositions[i]; // Get position from array
+            const color = trailColors[i]; // Get color from array
+            drawSquare(x, y, squareProperties.size, color); // Draw square at position with color
+        }
+
+        // Request next animation frame to continue animation loop
+        requestAnimationFrame(animate);
+    }
+});
