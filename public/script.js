@@ -71,11 +71,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Square properties
     let squareX = Math.random() * (canvas.width - squareProperties.size); // Random starting x position
     let squareY = Math.random() * (canvas.height - squareProperties.size); // Random starting y position
-    let dx = squareProperties.speed;
-    let dy = squareProperties.speed;
+    let dx = squareProperties.speed * 0.67; // Slow down by about 1/3
+    let dy = squareProperties.speed * 0.67; // Slow down by about 1/3
 
     // Color change interval
-    const colorChangeInterval = 4; // Colour changes every 4 frames
+    const colorChangeInterval = 6; // Change the color every 6 frames to slow down the animation
     let frameCount = 0;
 
     // Array to store previous positions and colors for trail effect
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         frameCount++; // Increment frame count
 
-        // Change color every colorChangeInterval frames
+        // Change color and play sound every colorChangeInterval frames
         if (frameCount % colorChangeInterval === 0) {
             // Generate a random color for the square
             const color = squareProperties.color === 'random' ? randomColor() : squareProperties.color;
@@ -107,6 +107,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Add current position and color to arrays for trail effect
             trailPositions.push({ x: squareX, y: squareY });
             trailColors.push(color);
+
+            // Play corresponding sound if there is any
+            if (sounds.length > 0) {
+                sounds[(frameCount / colorChangeInterval) % sounds.length].play();
+            }
         }
 
         // Move the square
@@ -118,13 +123,4 @@ document.addEventListener('DOMContentLoaded', () => {
             dx = -dx; // Reverse horizontal direction
         }
         if (squareY + squareProperties.size > canvas.height || squareY < 0) {
-            dy = -dy; // Reverse vertical direction
-        }
-
-        // Clear canvas before drawing the next frame
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Draw trail
-        for (let i = 0; i < trailPositions.length; i++) {
-            const { x, y } = trailPositions[i]; // Get position from array
-           
+            dy = -dy; // Reverse
