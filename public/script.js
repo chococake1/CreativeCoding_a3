@@ -52,6 +52,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         squareProperties.color.hue = 0;
                     }
                 }
+                else if (property === 'squares') {
+                    if (value === "1") {
+                        squareProperties.size *= 0.4;
+                        squareProperties.speed *= 1.6;
+                    } else if (value === "2") {
+                        squareProperties.size *= 0.7;
+                        squareProperties.speed *= 1.3;
+                    } 
+                    // If value is "3" (exhausted), do nothing as it is the default size and speed
+                }
             }
 
             // Hide the current question
