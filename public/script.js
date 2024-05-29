@@ -127,7 +127,7 @@ let lastPlayedSoundIndex = -1; // Initialize with an invalid index
 function playRandomSound() {
     if (soundsData.length > 0) {
         const randomIndex = Math.floor(Math.random() * soundsData.length);
-        const soundSrc = soundsData.splice(randomIndex, 1)[0]; // Remove the sound from soundsData
+        // const soundSrc = soundsData.splice(randomIndex, 1)[0]; // Remove the sound from soundsData
         playSound(soundSrc);
     }
 }
