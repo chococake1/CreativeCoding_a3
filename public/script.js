@@ -132,27 +132,6 @@ function playRandomSound() {
     }
 }
 
-
-    // Function to play sounds 4, 5, or 6 every 3.5 seconds if the user chooses "Anxious"
-function playAnxiousSound() {
-    const anxiousButtons = document.querySelectorAll('.answer[data-value="red"]');
-    anxiousButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Check if the clicked button has value "red" (Anxious)
-            if (button.getAttribute('data-value') === "red") {
-                // Set interval to play sounds 4, 5, or 6 every 3.5 seconds
-                setInterval(() => {
-                    const randomSoundIndex = Math.floor(Math.random() * 3) + 4; // Random index between 4 and 6
-                    playSound(`sound${randomSoundIndex}.mp3`);
-                }, 3500);
-            }
-        });
-    });
-}
-
-// Call the function to play sounds 4, 5, or 6 every 3.5 seconds if "Anxious" is chosen
-playAnxiousSound();
-    
 // Function to play sounds 7, 8, or 9 every 2 seconds if the user chooses "Lil Sad"
 function playLilSadSound() {
     const lilSadButtons = document.querySelectorAll('.answer[data-value="blue"]');
@@ -192,49 +171,6 @@ function playNotBadSound() {
 
 // Call the function to play sounds 13, 14, or 15 every 3 seconds if "Not Bad" is chosen
 playNotBadSound();
-
-
-    // Function to play sounds 25, 26, or 27 every 2.7 seconds if the user chooses "Sleeepy"
-function playSleepySound() {
-    const sleepyButtons = document.querySelectorAll('.answer[data-value="3"]');
-    sleepyButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Check if the clicked button has value "3" (Sleeepy)
-            if (button.getAttribute('data-value') === "3") {
-                // Set interval to play sounds 25, 26, or 27 every 2.7 seconds
-                setInterval(() => {
-                    const randomSoundIndex = Math.floor(Math.random() * 3) + 25; // Random index between 25 and 27
-                    playSound(`sound${randomSoundIndex}.mp3`);
-                }, 2700);
-            }
-        });
-    });
-}
-
-
-    // Function to play sounds 22, 23, or 24 every 2 seconds if the user chooses "Little Tired"
-function playLittleTiredSound() {
-    const littleTiredButtons = document.querySelectorAll('.answer[data-value="2"]');
-    littleTiredButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Check if the clicked button has value "2" (Little Tired)
-            if (button.getAttribute('data-value') === "2") {
-                // Set interval to play sounds 22, 23, or 24 every 2 seconds
-                setInterval(() => {
-                    const randomSoundIndex = Math.floor(Math.random() * 3) + 22; // Random index between 22 and 24
-                    playSound(`sound${randomSoundIndex}.mp3`);
-                }, 2000);
-            }
-        });
-    });
-}
-
-// Call the function to play sounds 22, 23, or 24 every 2 seconds if "Little Tired" is chosen
-playLittleTiredSound();
-
-// Call the function to play sounds 25, 26, or 27 every 2.7 seconds if "Sleeepy" is chosen
-playSleepySound();
-
     
     // Function to animate the square
     function animate() {
