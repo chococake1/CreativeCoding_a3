@@ -173,16 +173,16 @@ function playLilSadSound() {
 // Call the function to play sounds 7, 8, or 9 every 2 seconds if "Lil Sad" is chosen
 playLilSadSound();
 
-    // Function to play sounds 16, 17, or 18 every 3 seconds if the user chooses "bleh"
+    // Function to play sounds 13, 14, or 15 every 3 seconds if the user chooses "Not Bad"
 function playNotBadSound() {
     const notBadButtons = document.querySelectorAll('.answer[data-value="240"]');
     notBadButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // Check if the clicked button has value "bleh"
-            if (button.getAttribute('data-value') === "bleh") {
-                // Set interval to play sounds 16, 17, or 18 every 3 seconds
+            // Check if the clicked button has value "240" (Not Bad)
+            if (button.getAttribute('data-value') === "240") {
+                // Set interval to play sounds 13, 14, or 15 every 3 seconds
                 setInterval(() => {
-                    const randomSoundIndex = Math.floor(Math.random() * 3) + 16; // Random index between 13 and 15
+                    const randomSoundIndex = Math.floor(Math.random() * 3) + 13; // Random index between 13 and 15
                     playSound(`sound${randomSoundIndex}.mp3`);
                 }, 3000);
             }
@@ -190,7 +190,7 @@ function playNotBadSound() {
     });
 }
 
-// Call the function to play sounds 16, 17, or 18 every 3 seconds if "bleh" is chosen
+// Call the function to play sounds 13, 14, or 15 every 3 seconds if "Not Bad" is chosen
 playNotBadSound();
 
 
