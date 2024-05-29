@@ -28,16 +28,21 @@ document.querySelectorAll('.answer').forEach(button => {
         if (soundSrc2) soundsData.push(soundSrc2);
         if (soundSrc3) soundsData.push(soundSrc3);
 
-        // Update square properties based on user's choice
-        const property = event.target.getAttribute('data-property');
-        const value = event.target.getAttribute('data-value');
-        if (property && value) {
-            if (property === 'size' || property === 'speed') {
-                squareProperties[property] = parseFloat(value);
-            } else if (property === 'color') {
-                squareProperties.color.baseColor = value;
-            }
+// Update square properties based on user's choice
+const property = event.target.getAttribute('data-property');
+const value = event.target.getAttribute('data-value');
+if (property && value) {
+    if (property === 'size' || property === 'speed') {
+        squareProperties[property] = parseFloat(value);
+    } else if (property === 'color') {
+        if (value === 'blue') {
+            squareProperties.color.baseColor = 'blue'; // Set base color to blue if "Sad" button is clicked
+        } else {
+            squareProperties.color.baseColor = value;
         }
+    }
+}
+
 
         // Hide the current question
         questions[currentQuestion].style.display = 'none';
