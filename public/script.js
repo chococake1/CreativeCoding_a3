@@ -135,22 +135,25 @@ function playRandomSound() {
 // Use setInterval to play a random sound every 1 second
 // setInterval(playRandomSound, 400);
 
-    // Function to play sounds 7, 8, or 9 every 2 seconds if the user chooses "Lil Sad"
-function lilSad() {
-    const lilSad = document.querySelectorAll('.answer[data-value="blue"]');
+// Function to play sounds 7, 8, or 9 every 2 seconds if the user chooses "Lil Sad"
+function playLilSadSound() {
+    const lilSadButtons = document.querySelectorAll('.answer[data-value="blue"]');
     lilSadButtons.forEach(button => {
         button.addEventListener('click', () => {
             // Check if the clicked button has value "blue" (Lil Sad)
             if (button.getAttribute('data-value') === "blue") {
                 // Set interval to play sounds 7, 8, or 9 every 2 seconds
                 setInterval(() => {
-                    const randomSoundIndex = Math.floor(Math.random() * 3) + 7; // Random index between 13 and 15
+                    const randomSoundIndex = Math.floor(Math.random() * 3) + 7; // Random index between 7 and 9
                     playSound(`sound${randomSoundIndex}.mp3`);
                 }, 2000);
             }
         });
     });
 }
+
+// Call the function to play sounds 7, 8, or 9 every 2 seconds if "Lil Sad" is chosen
+playLilSadSound();
 
 // // Function to play a random sound from soundsData
 // function playRandomSound() {
@@ -162,7 +165,7 @@ function lilSad() {
 // }
 
 // Use setInterval to play a random sound every 1 second
-setInterval(playRandomSound, 1000);
+setInterval(playRandomSound, 8000);
 
     // Function to play sounds 13, 14, or 15 every 3 seconds if the user chooses "Not Bad"
 function playNotBadSound() {
