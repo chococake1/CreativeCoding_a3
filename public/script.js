@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('controls').style.display = 'block';
                 canvas.style.display = 'block'; // Show the canvas
                 isRunning = true; // Start square animation
-                createSquares(3); // Create squares based on user's answers
+                createSquares(parseInt(value)); // Create squares based on user's answers
                 animate(); // Start animation loop
             }
         });
@@ -100,8 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Draw each square and update its position
         squares.forEach(square => {
-            // Draw trail
-            const color = `hsl(${squareProperties.color.hue}, 100%, 50%)`;
+            // Draw square
             drawSquare(square);
 
             // Move the square
