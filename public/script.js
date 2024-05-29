@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
             playRandomSound();
         }
 
-        // Update square position
+        // Move the square diagonally
         squareX += dx;
         squareY += dy;
 
