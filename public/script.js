@@ -36,12 +36,14 @@ if (property && value) {
         squareProperties[property] = parseFloat(value);
     } else if (property === 'color') {
         if (value === 'blue') {
-            squareProperties.color.baseColor = 'blue'; // Set base color to blue if "Sad" button is clicked
+            // Set base color to blue if "Sad" button is clicked
+            squareProperties.color = { baseColor: 'blue', hue: 240 }; // Assuming hue 240 for blue
         } else {
-            squareProperties.color.baseColor = value;
+            squareProperties.color = { baseColor: value, hue: 0 };
         }
     }
 }
+
 
 
         // Hide the current question
