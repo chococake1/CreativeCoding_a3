@@ -53,14 +53,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
                 else if (property === 'squares') {
-                    if (value === "1") {
+                    if (value === "1") { // Not tired at all
                         squareProperties.size *= 0.4;
-                        squareProperties.speed *= 1.6;
-                    } else if (value === "2") {
+                        squareProperties.speed *= 0.8;
+                    } else if (value === "2") { // A little tired
                         squareProperties.size *= 0.7;
                         squareProperties.speed *= 1.3;
-                    } 
-                    // If value is "3" (exhausted), do nothing as it is the default size and speed
+                    } else if (value === "3") { // Exhausted
+                        squareProperties.speed *= 1.6;
+                    }
                 }
             }
 
