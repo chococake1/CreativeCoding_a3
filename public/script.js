@@ -29,6 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('controls').style.display = 'block';
                 canvas.style.display = 'block'; // Show the canvas
                 isRunning = true; // Start square animation
+
+                // Generate random squares based on the user's answers
+                const answerValue = parseInt(button.getAttribute('data-value'));
+                generateRandomSquares(answerValue);
                 animate(); // Start animation loop
             }
         });
