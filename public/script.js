@@ -10,9 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Default square properties
     let squareProperties = {
-        color: 'black',
+        color: { baseColor: 'hsl(0, 100%, 50%)', hue: 0 },
         size: 40,
-        speed: 4
+        speed: 8
     };
 
     // Show the first question
@@ -29,8 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (property && value) {
                 if (property === 'size' || property === 'speed') {
                     squareProperties[property] = parseFloat(value);
-                } else {
-                    squareProperties[property] = value;
+                } else if (property === 'color') {
+                    squareProperties.color.baseColor = value;
                 }
             }
 
@@ -45,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('controls').style.display = 'block';
                 canvas.style.display = 'block'; // Show the canvas
                 isRunning = true; // Start square animation
-                createInitialSquares(); // Create initial squares based on user's choice
                 animate(); // Start animation loop
             }
         });
@@ -73,27 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Array to store square objects
     const squares = [];
 
-    // Function to generate a random color
-    function randomColor() {
-        return '#' + Math.floor(Math.random() * 16777215).toString(16);
-    }
-
-    // Function to create initial squares based on user's choice
-    function createInitialSquares() {
-        const tiredness = squareProperties.tiredness || 1; // Default to 1 if not specified
-        const numSquares = Math.floor(tiredness) + Math.random(); // Generate a random number of squares
-        for (let i = 0; i < numSquares; i++) {
-            const square = {
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                dx: squareProperties.speed * (Math.random() - 0.5),
-                dy: squareProperties.speed * (Math.random() - 0.5),
-                color: squareProperties.color === 'random' ? randomColor() : squareProperties.color
-            };
-            squares.push(square);
-        }
-    }
-
     // Function to draw a square on the canvas
     function drawSquare(square) {
         ctx.fillStyle = square.color; // Set fill color
@@ -107,23 +85,44 @@ document.addEventListener('DOMContentLoaded', () => {
         // Clear canvas before drawing the next frame
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Move and draw squares
+        // Draw and update squares
         squares.forEach(square => {
+            // Draw square
+            drawSquare(square);
+
+            // Update square position
             square.x += square.dx;
             square.y += square.dy;
 
-            // Bounce off the canvas edges
-            if (square.x <= 0 || square.x + squareProperties.size >= canvas.width) {
-                square.dx = -square.dx;
+            // Check if square is within canvas bounds
+            if (square.x < 0 || square.x > canvas.width || square.y < 0 || square.y > canvas.height) {
+                // Reset square position if it goes out of bounds
+                square.x = Math.random() * canvas.width;
+                square.y = Math.random() * canvas.height;
             }
-            if (square.y <= 0 || square.y + squareProperties.size >= canvas.height) {
-                square.dy = -square.dy;
-            }
-
-            drawSquare(square);
         });
 
         // Request next animation frame to continue animation loop
         requestAnimationFrame(animate);
+    }
+
+    // Function to generate a random color with slight variation from the base color
+    function generateRandomColor(baseColor) {
+        const hueVariation = Math.random() * 20 - 10; // Slight variation of +/- 10
+        const newHue = (baseColor.hue + hueVariation) % 360;
+        baseColor.hue = newHue;
+        return `hsl(${newHue}, 100%, 50%)`;
+    }
+
+    // Create initial squares
+    for (let i = 0; i < 10; i++) { // Adjust the number of squares as needed
+        const square = {
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            dx: squareProperties.speed * (Math.random() - 0.5),
+            dy: squareProperties.speed * (Math.random() - 0.5),
+            color: generateRandomColor(squareProperties.color)
+        };
+        squares.push(square);
     }
 });
