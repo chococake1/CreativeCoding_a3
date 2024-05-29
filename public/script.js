@@ -15,6 +15,64 @@ document.addEventListener('DOMContentLoaded', () => {
         speed: 8
     };
 
+    // Show the first question
+    questions[currentQuestion].style.display = 'block';
+
+    document.querySelectorAll('.answer').forEach(button => {
+        button.addEventListener('click', event => {
+            const soundSrc1 = event.target.getAttribute('data-sound1');
+            const soundSrc2 = event.target.getAttribute('data-sound2');
+            const soundSrc3 = event.target.getAttribute('data-sound3');
+
+            if (soundSrc1) soundsData.push(soundSrc1);
+            if (soundSrc2) soundsData.push(soundSrc2);
+            if (soundSrc3) soundsData.push(soundSrc3);
+
+            // Update square properties based on user's choice
+            const property = event.target.getAttribute('data-property');
+            const value = event.target.getAttribute('data-value');
+            if (property && value) {
+                if (property === 'size' || property === 'speed') {
+                    squareProperties[property] = parseFloat(value);
+                } else if (property === 'color') {
+                    // Check if user selected "Sad" mood and set square color to blue
+                    if (value === 'blue') {
+                        squareProperties.color.baseColor = 'blue';
+                    } else {
+                        squareProperties.color.baseColor = value;
+                    }
+                }
+            }
+
+            // Hide the current question
+            questions[currentQuestion].style.display = 'none';
+
+            // Show the next question if available
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                questions[currentQuestion].style.display = 'block';
+            } else {
+                document.getElementById('controls').style.display = 'block';
+                canvas.style.display = 'block'; // Show the canvas
+                initializeSquare(); // Initialize the square after all questions are answered
+            }
+        });
+    });
+
+    playSymphonyButton.addEventListener('click', () => {
+        isRunning = true; // Resume square animation
+    });
+
+    stopSymphonyButton.addEventListener('click', () => {
+        isRunning = false; // Pause square animation
+        // Stop all sounds
+        const sounds = document.querySelectorAll('audio');
+        sounds.forEach(sound => {
+            sound.pause();
+            sound.currentTime = 0;
+        });
+    });
+
     // Function to initialize the square
     function initializeSquare() {
         // Set canvas width and height to fill the window
@@ -108,57 +166,4 @@ document.addEventListener('DOMContentLoaded', () => {
             requestAnimationFrame(animate);
         }
     }
-
-    // Show the first question
-    questions[currentQuestion].style.display = 'block';
-
-    document.querySelectorAll('.answer').forEach(button => {
-        button.addEventListener('click', event => {
-            const soundSrc1 = event.target.getAttribute('data-sound1');
-            const soundSrc2 = event.target.getAttribute('data-sound2');
-            const soundSrc3 = event.target.getAttribute('data-sound3');
-
-            if (soundSrc1) soundsData.push(soundSrc1);
-            if (soundSrc2) soundsData.push(soundSrc2);
-            if (soundSrc3) soundsData.push(soundSrc3);
-
-            // Update square properties based on user's choice
-            const property = event.target.getAttribute('data-property');
-            const value = event.target.getAttribute('data-value');
-            if (property && value) {
-                if (property === 'size' || property === 'speed') {
-                    squareProperties[property] = parseFloat(value);
-                } else if (property === 'color') {
-                    squareProperties.color.baseColor = value;
-                }
-            }
-
-            // Hide the current question
-            questions[currentQuestion].style.display = 'none';
-
-            // Show the next question if available
-            currentQuestion++;
-            if (currentQuestion < questions.length) {
-                questions[currentQuestion].style.display = 'block';
-            } else {
-                document.getElementById('controls').style.display = 'block';
-                canvas.style.display = 'block'; // Show the canvas
-                initializeSquare(); // Initialize the square after all questions are answered
-            }
-        });
-    });
-
-    playSymphonyButton.addEventListener('click', () => {
-        isRunning = true; // Resume square animation
-    });
-
-    stopSymphonyButton.addEventListener('click', () => {
-        isRunning = false; // Pause square animation
-        // Stop all sounds
-        const sounds = document.querySelectorAll('audio');
-        sounds.forEach(sound => {
-            sound.pause();
-            sound.currentTime = 0;
-        });
-    });
 });
