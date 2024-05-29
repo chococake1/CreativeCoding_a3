@@ -36,7 +36,7 @@ if (property && value) {
         squareProperties[property] = parseFloat(value);
     } else if (property === 'color') {
         // Check if user selected "Sad" mood and set square color to blue
-        if (value.toLowerCase() === 'blue') {
+        if (value.toLowerCase() === 'blue' || value.toLowerCase() === 'sad') {
             squareProperties.color.baseColor = 'blue';
         } else {
             squareProperties.color.baseColor = value;
