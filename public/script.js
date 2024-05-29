@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const soundsData = [];
     const questions = document.querySelectorAll('.question');
-    const playSymphonyButton = document.getElementById('playSymphony');
+    const playSymphonyButton = document.getElementById('speedUpSqaures');
     const stopSymphonyButton = document.getElementById('stopSymphony');
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
@@ -78,10 +78,12 @@ if (property && value) {
 });
 
 
-    playSymphonyButton.addEventListener('click', () => {
-        isRunning = true; // Resume square animation
-        animate(); // Continue animation loop
-    });
+// Add event listener for the "Speed Up Squares" button
+document.getElementById('speedUpSquares').addEventListener('click', () => {
+    // Increase the speed of the squares when the button is clicked
+    squareProperties.speed += 2; // Increase the speed by 2 units (adjust as needed)
+});
+
 
     stopSymphonyButton.addEventListener('click', () => {
         isRunning = false; // Pause square animation
