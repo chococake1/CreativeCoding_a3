@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const soundsData = [];
     const questions = document.querySelectorAll('.question');
-    // const playSymphonyButton = document.getElementById('playSymphony');
+    // const playyButton = document.getElementById('playSymphony');
     // const stopSymphonyButton = document.getElementById('stopSymphony');
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
@@ -80,15 +80,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    stopSymphonyButton.addEventListener('click', () => {
-        isRunning = false; // Pause square animation
-        // Stop all sounds
-        const sounds = document.querySelectorAll('audio');
-        sounds.forEach(sound => {
-            sound.pause();
-            sound.currentTime = 0;
-        });
-    });
+    // stopSymphonyButton.addEventListener('click', () => {
+    //     isRunning = false; // Pause square animation
+    //     // Stop all sounds
+    //     const sounds = document.querySelectorAll('audio');
+    //     sounds.forEach(sound => {
+    //         sound.pause();
+    //         sound.currentTime = 0;
+    //     });
+    // });
 
     // Set canvas width and height to fill the window
     canvas.width = window.innerWidth;
