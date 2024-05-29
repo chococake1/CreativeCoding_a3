@@ -77,8 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Square properties
     let squareX = Math.random() * (canvas.width - squareProperties.size); // Random starting x position
     let squareY = Math.random() * (canvas.height - squareProperties.size); // Random starting y position
-    let dx = squareProperties.speed * 0.67; // Horizontal speed
-    let dy = squareProperties.speed * 0.67; // Vertical speed
+    let dx = squareProperties.speed * (Math.random() < 0.5 ? 1 : -1); // Randomize initial horizontal direction
+    let dy = squareProperties.speed * (Math.random() < 0.5 ? 1 : -1); // Randomize initial vertical direction
 
     // Color change interval
     const colorChangeInterval = 12; // Change the color every 12 frames to slow down the animation
@@ -148,6 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const color = trailColors[i]; // Get color from array
             drawSquare(x, y, squareProperties.size, color); // Draw square at position with color
         }
+
+        // Draw the moving square
+        drawSquare(squareX, squareY, squareProperties.size, squareProperties.color.baseColor);
 
         // Request next animation frame to continue animation loop
         requestAnimationFrame(animate);
