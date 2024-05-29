@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentQuestion < questions.length) {
                 questions[currentQuestion].style.display = 'block';
             } else {
+                // Start animation and show canvas after the third question is answered
                 canvas.style.display = 'block'; // Show the canvas
                 isRunning = true; // Start square animation
                 animate(); // Start animation loop
