@@ -28,21 +28,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (soundSrc2) soundsData.push(soundSrc2);
             if (soundSrc3) soundsData.push(soundSrc3);
 
-            // Update square properties based on user's choice
-            const property = event.target.getAttribute('data-property');
-            const value = event.target.getAttribute('data-value');
-            if (property && value) {
-                if (property === 'size' || property === 'speed') {
-                    squareProperties[property] = parseFloat(value);
-                } else if (property === 'color') {
-                    // Check if user selected "Sad" mood and set square color to blue
-                    if (value.toLowerCase() === 'sad') {
-                        squareProperties.color.baseColor = 'blue';
-                    } else {
-                        squareProperties.color.baseColor = value;
-                    }
-                }
-            }
+// Update square properties based on user's choice
+const property = event.target.getAttribute('data-property');
+const value = event.target.getAttribute('data-value');
+if (property && value) {
+    if (property === 'size' || property === 'speed') {
+        squareProperties[property] = parseFloat(value);
+    } else if (property === 'color') {
+        // Check if user selected "Sad" mood and set square color to blue
+        if (value.toLowerCase() === 'blue') {
+            squareProperties.color.baseColor = 'blue';
+        } else {
+            squareProperties.color.baseColor = value;
+        }
+    }
+}
+
 
             // Hide the current question
             questions[currentQuestion].style.display = 'none';
