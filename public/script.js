@@ -54,10 +54,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (property === 'squares') {
                     if (value === "1") {
                         squareProperties.size *= 0.4;
-                        squareProperties.speed = 1.4;
+                        squareProperties.speed = 3;
                     } else if (value === "2") {
                         squareProperties.size *= 0.7;
-                        squareProperties.speed = 1.2;
+                        squareProperties.speed = 2.2;
                     } else if (value === "3") {
                         // For "Not tired at all", increase speed by 50%
                         squareProperties.speed = 1;
