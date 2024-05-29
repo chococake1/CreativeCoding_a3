@@ -130,7 +130,7 @@ function playRandomSound() {
 }
 
 // Use setInterval to play a random sound every 1 second
-setInterval(playRandomSound, 1000);
+setInterval(playRandomSound, 400);
     
     // Function to animate the square
     function animate() {
