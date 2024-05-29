@@ -33,11 +33,6 @@ const property = event.target.getAttribute('data-property');
 const value = event.target.getAttribute('data-value');
 console.log("Selected value:", value); // Log the selected value to check
 
-// Update square properties based on user's choice
-const property = event.target.getAttribute('data-property');
-const value = event.target.getAttribute('data-value');
-console.log("Selected value:", value); // Log the selected value to check
-
 if (property && value) {
     if (property === 'size' || property === 'speed') {
         squareProperties[property] = parseFloat(value);
@@ -45,11 +40,30 @@ if (property && value) {
         // Check if user selected "Sad" mood and set square color to blue
         if (value.toLowerCase() === 'blue' || value.toLowerCase() === 'sad') {
             squareProperties.color.baseColor = 'blue';
+            // Do not push sound files for "blue" color
+            if (value.toLowerCase() !== 'blue') {
+                if (value.toLowerCase() === 'sad') {
+                    const soundSrc1 = event.target.getAttribute('data-sound1');
+                    const soundSrc2 = event.target.getAttribute('data-sound2');
+                    const soundSrc3 = event.target.getAttribute('data-sound3');
+                    if (soundSrc1) soundsData.push(soundSrc1);
+                    if (soundSrc2) soundsData.push(soundSrc2);
+                    if (soundSrc3) soundsData.push(soundSrc3);
+                }
+            }
         } else {
             squareProperties.color.baseColor = value;
+            // Push sound files for other colors
+            const soundSrc1 = event.target.getAttribute('data-sound1');
+            const soundSrc2 = event.target.getAttribute('data-sound2');
+            const soundSrc3 = event.target.getAttribute('data-sound3');
+            if (soundSrc1) soundsData.push(soundSrc1);
+            if (soundSrc2) soundsData.push(soundSrc2);
+            if (soundSrc3) soundsData.push(soundSrc3);
         }
     }
 }
+
 
             // Hide the current question
             questions[currentQuestion].style.display = 'none';
