@@ -1,5 +1,4 @@
 
-
 document.addEventListener('DOMContentLoaded', () => {
     const soundsData = [];
     const questions = document.querySelectorAll('.question');
@@ -22,8 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.answer').forEach(button => {
         button.addEventListener('click', event => {
-            const soundSrc = event.target.getAttribute('data-sound');
-            soundsData.push(soundSrc);
+            const soundSrc1 = event.target.getAttribute('data-sound1');
+            const soundSrc2 = event.target.getAttribute('data-sound2');
+            const soundSrc3 = event.target.getAttribute('data-sound3');
+
+            if (soundSrc1) soundsData.push(soundSrc1);
+            if (soundSrc2) soundsData.push(soundSrc2);
+            if (soundSrc3) soundsData.push(soundSrc3);
 
             // Update square properties based on user's choice
             const property = event.target.getAttribute('data-property');
@@ -74,8 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Square properties
     let squareX = Math.random() * (canvas.width - squareProperties.size); // Random starting x position
     let squareY = Math.random() * (canvas.height - squareProperties.size); // Random starting y position
-    let dx = squareProperties.speed * 0.67; // Slow down by about 1/3
-    let dy = squareProperties.speed * 0.67; // Slow down by about 1/3
+    let dx = squareProperties.speed * 0.67; // Horizontal speed
+    let dy = squareProperties.speed * 0.67; // Vertical speed
 
     // Color change interval
     const colorChangeInterval = 12; // Change the color every 12 frames to slow down the animation
@@ -118,13 +122,13 @@ document.addEventListener('DOMContentLoaded', () => {
             trailColors.push(color);
 
             // Play corresponding sound if there is any
-            const soundIndex = (frameCount / colorChangeInterval) % soundsData.length;
+            const soundIndex = Math.floor((frameCount / colorChangeInterval) % soundsData.length);
             if (soundsData[soundIndex]) {
                 playSound(soundsData[soundIndex]);
             }
         }
 
-        // Move the square
+        // Move the square diagonally
         squareX += dx; // Move horizontally
         squareY += dy; // Move vertically
 
