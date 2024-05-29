@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 document.getElementById('controls').style.display = 'block';
                 canvas.style.display = 'block'; // Show the canvas
+                createSquares(3); // Create squares based on user's answers
                 isRunning = true; // Start square animation
                 animate(); // Start animation loop
             }
