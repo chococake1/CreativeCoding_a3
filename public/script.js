@@ -135,27 +135,31 @@ function playRandomSound() {
 // Use setInterval to play a random sound every 1 second
 // setInterval(playRandomSound, 400);
 
-// Function to play sounds 1 to 3 every 2 seconds
-function playSounds123() {
-    // Set interval to play sounds 1 to 3 every 2 seconds
-    setInterval(() => {
-        for (let i = 1; i <= 3; i++) {
-            playSound(`sound${i}.mp3`);
-        }
-    }, 2000);
+    // Function to play sounds 7, 8, or 9 every 2 seconds if the user chooses "Lil Sad"
+function playNotBadSound() {
+    const notBadButtons = document.querySelectorAll('.answer[data-value="blue"]');
+    notBadButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Check if the clicked button has value "blue" (Lil Sad)
+            if (button.getAttribute('data-value') === "240") {
+                // Set interval to play sounds 7, 8, or 9 every 2 seconds
+                setInterval(() => {
+                    const randomSoundIndex = Math.floor(Math.random() * 3) + 7; // Random index between 13 and 15
+                    playSound(`sound${randomSoundIndex}.mp3`);
+                }, 2000);
+            }
+        });
+    });
 }
 
-// Call the function to play sounds 1 to 3 every 2 seconds
-playSounds123();
-
-// Function to play a random sound from soundsData
-function playRandomSound() {
-    if (soundsData.length > 0) {
-        const randomIndex = Math.floor(Math.random() * soundsData.length);
-        const soundSrc = soundsData.splice(randomIndex, 1)[0]; // Remove the sound from soundsData
-        playSound(soundSrc);
-    }
-}
+// // Function to play a random sound from soundsData
+// function playRandomSound() {
+//     if (soundsData.length > 0) {
+//         const randomIndex = Math.floor(Math.random() * soundsData.length);
+//         const soundSrc = soundsData.splice(randomIndex, 1)[0]; // Remove the sound from soundsData
+//         playSound(soundSrc);
+//     }
+// }
 
 // Use setInterval to play a random sound every 1 second
 setInterval(playRandomSound, 1000);
