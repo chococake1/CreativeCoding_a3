@@ -233,7 +233,7 @@ function playWellAwakeSound() {
 // Call the function to play sounds 19, 20, or 21 every 1.1 seconds if "Well Awake" is chosen
 playWellAwakeSound();
     
-// Function to play sounds 22, 23, or 24 every 0.95 seconds if the user chooses "Little Tired"
+// Function to play sounds 22, 23, or 24 every 1.35 seconds if the user chooses "Little Tired"
 function playLittleTiredSound() {
     const littleTiredButtons = document.querySelectorAll('.answer[data-value="2"]');
     littleTiredButtons.forEach(button => {
@@ -244,7 +244,7 @@ function playLittleTiredSound() {
                 setInterval(() => {
                     const randomSoundIndex = Math.floor(Math.random() * 3) + 22; // Random index between 22 and 24
                     playSound(`sound${randomSoundIndex}.mp3`);
-                }, 950);
+                }, 1350);
             }
         });
     });
