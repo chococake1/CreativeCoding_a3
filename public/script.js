@@ -265,7 +265,7 @@ function playWellAwakeSound() {
                 setInterval(() => {
                     const randomSoundIndex = Math.floor(Math.random() * 3) + 19; // Random index between 19 and 21
                     playSound(`sound${randomSoundIndex}.mp3`);
-                }, 1100);
+                }, 2100);
             }
         });
     });
