@@ -204,7 +204,7 @@ function playNotBadSound() {
                 setInterval(() => {
                     const randomSoundIndex = Math.floor(Math.random() * 3) + 13; // Random index between 13 and 15
                     playSound(`sound${randomSoundIndex}.mp3`);
-                }, 3000);
+                }, 3900);
             }
         });
     });
