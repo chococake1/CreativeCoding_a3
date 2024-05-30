@@ -230,10 +230,30 @@ function playBlehSound() {
     });
 }
 
-    
 // Call the function to play sounds 16, 17, or 18 every 3 seconds if "Bleh :p" is chosen
 playBlehSound();
 
+
+    // Function to play sounds 10, 11, or 12 every 4 seconds if the user chooses "Very Nice :D"
+function playVeryNiceSound() {
+    const veryNiceButtons = document.querySelectorAll('.answer[data-value="300"]');
+    veryNiceButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Check if the clicked button has value "300" (Very Nice :D)
+            if (button.getAttribute('data-value') === "300") {
+                // Set interval to play sounds 10, 11, or 12 every 4 seconds
+                setInterval(() => {
+                    const randomSoundIndex = Math.floor(Math.random() * 3) + 10; // Random index between 10 and 12
+                    playSound(`sound${randomSoundIndex}.mp3`);
+                }, 4000);
+            }
+        });
+    });
+}
+
+// Call the function to play sounds 10, 11, or 12 every 4 seconds if "Very Nice :D" is chosen
+playVeryNiceSound();
+    
     // Function to play sounds 19, 20, or 21 every 1.1 seconds if the user chooses "Well Awake"
 function playWellAwakeSound() {
     const wellAwakeButtons = document.querySelectorAll('.answer[data-value="1"]');
