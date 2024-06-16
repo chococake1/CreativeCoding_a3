@@ -3,54 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hear Yourself</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Skitters Rat</title>
     <style>
-        body, html {
+        body {
             margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
             overflow: hidden;
+            background-color: #f0f0f0;
         }
-        #canvas {
+        #rat {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            display: none; /* Hide the canvas initially */
+            width: 100px;
+            height: auto;
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Hear Your Symphony</h1>
-        <div id="questions">
-            <div class="question">
-                <p>How do you feel lately?</p>
-                <button class="answer" data-sound1="sound1.mp3" data-sound2="sound2.mp3" data-sound3="sound3.mp3" data-property="color" data-value="yellow">Content</button>
-                <button class="answer" data-sound1="sound4.mp3" data-sound2="sound5.mp3" data-sound3="sound6.mp3" data-property="color" data-value="red">Anxious</button>
-                <button class="answer" data-sound1="sound7.mp3" data-sound2="sound8.mp3" data-sound3="sound9.mp3" data-property="color" data-value="blue">Lil Sad</button>
-            </div>
-            <div class="question">
-                <p>Hows the weather today</p>
-                <button class="answer" data-sound1="sound10.mp3" data-sound2="sound11.mp3" data-sound3="sound12.mp3" data-property="size" data-value="300">Very nice :D</button>
-                <button class="answer" data-sound1="sound13.mp3" data-sound2="sound14.mp3" data-sound3="sound15.mp3" data-property="size" data-value="240">Not bad</button>
-                <button class="answer" data-sound1="sound16.mp3" data-sound2="sound17.mp3" data-sound3="sound18.mp3" data-property="size" data-value="180">Bleh :p</button>
-            </div>
-            <div class="question">
-                <p>How tired are you right now?</p>
-                <button class="answer" data-sound1="sound19.mp3" data-sound2="sound20.mp3" data-sound3="sound21.mp3" data-property="squares" data-value="1">Well Awake</button>
-                <button class="answer" data-sound1="sound22.mp3" data-sound2="sound23.mp3" data-sound3="sound24.mp3" data-property="squares" data-value="2">Little Tired</button>
-                <button class="answer" data-sound1="sound25.mp3" data-sound2="sound26.mp3" data-sound3="sound27.mp3" data-property="squares" data-value="3">Sleeepy</button>
-            </div>
-        </div>
-    </div>
+    <img src="rat.png" id="rat" alt="Rat">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const rat = document.getElementById('rat');
+            const speed = 300;
+            const movementRange = 200;
 
-    <canvas id="canvas"></canvas>
-    
-    <script src="script.js"></script>
+            function getRandomPosition() {
+                const x = Math.random() * (window.innerWidth - rat.width);
+                const y = Math.random() * (window.innerHeight - rat.height);
+                return { x, y };
+            }
+
+            function moveRat() {
+                const { x, y } = getRandomPosition();
+                rat.style.transition = `transform ${speed}ms linear`;
+                rat.style.transform = `translate(${x}px, ${y}px)`;
+            }
+
+            function skitterRat() {
+                moveRat();
+                setTimeout(skitterRat, Math.random() * 1000 + 200); // Random delay between movements
+            }
+
+            skitterRat();
+        });
+    </script>
 </body>
 </html>
