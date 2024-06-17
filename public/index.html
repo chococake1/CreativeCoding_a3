@@ -15,6 +15,7 @@
             width: 100px;
             height: auto;
             pointer-events: none;
+            transform-origin: center center;
         }
     </style>
 </head>
@@ -23,8 +24,9 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const rat = document.getElementById('rat');
-            const speed = 300;
-            const movementRange = 200;
+            const speed = 300; // Time in milliseconds for the rat to move
+            const movementRange = 200; // Maximum pixels the rat can move in one step
+            let lastPosition = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
 
             function getRandomPosition() {
                 const x = Math.random() * (window.innerWidth - rat.width);
@@ -32,10 +34,20 @@
                 return { x, y };
             }
 
+            function getAngle(from, to) {
+                const dx = to.x - from.x;
+                const dy = to.y - from.y;
+                return Math.atan2(dy, dx) * 180 / Math.PI;
+            }
+
             function moveRat() {
-                const { x, y } = getRandomPosition();
+                const newPosition = getRandomPosition();
+                const angle = getAngle(lastPosition, newPosition);
+                
                 rat.style.transition = `transform ${speed}ms linear`;
-                rat.style.transform = `translate(${x}px, ${y}px)`;
+                rat.style.transform = `translate(${newPosition.x}px, ${newPosition.y}px) rotate(${angle}deg)`;
+                
+                lastPosition = newPosition;
             }
 
             function skitterRat() {
