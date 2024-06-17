@@ -25,8 +25,9 @@
         document.addEventListener("DOMContentLoaded", function() {
             const rat = document.getElementById('rat');
             const speed = 300; // Time in milliseconds for the rat to move
-            const movementRange = 200; // Maximum pixels the rat can move in one step
             let lastPosition = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+            rat.style.left = `${lastPosition.x}px`;
+            rat.style.top = `${lastPosition.y}px`;
 
             function getRandomPosition() {
                 const x = Math.random() * (window.innerWidth - rat.width);
@@ -44,8 +45,10 @@
                 const newPosition = getRandomPosition();
                 const angle = getAngle(lastPosition, newPosition);
                 
-                rat.style.transition = `transform ${speed}ms linear`;
-                rat.style.transform = `translate(${newPosition.x}px, ${newPosition.y}px) rotate(${angle}deg)`;
+                rat.style.transition = `transform ${speed}ms linear, top ${speed}ms linear, left ${speed}ms linear`;
+                rat.style.transform = `rotate(${angle}deg)`;
+                rat.style.left = `${newPosition.x}px`;
+                rat.style.top = `${newPosition.y}px`;
                 
                 lastPosition = newPosition;
             }
