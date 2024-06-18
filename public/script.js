@@ -58,16 +58,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const dy = reappearPosition.y - offscreenY;
                 angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90; // Adjusted by 90 degrees
 
-                rat.style.transition = 'none';
                 rat.style.transform = `rotate(${angle}deg)`;
+                rat.style.transition = 'left 1s linear, top 1s linear';
                 rat.style.left = `${reappearPosition.x}px`;
                 rat.style.top = `${reappearPosition.y}px`;
 
-                setTimeout(() => {
-                    rat.style.transition = 'transform 0.5s, left 1s linear, top 1s linear';
-                    moveRat(); // Resume normal skittering
-                }, 50); // Small delay to apply the new position
-            }, hideDuration); // Wait before reappearing
+                timeoutID = setTimeout(moveRat, moveInterval); // Resume normal skittering after reappearing
+            }, hideDuration);
         }, 1000); // Ensure the rat has moved offscreen before starting the timer
     }
 
