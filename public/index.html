@@ -3,70 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skitters Rat</title>
+    <title>Skittering Rat</title>
     <style>
         body {
             margin: 0;
             overflow: hidden;
-            background-color: #f0f0f0;
         }
         #rat {
             position: absolute;
             width: 100px;
-            height: auto;
-            pointer-events: none;
-            transform-origin: center center;
+            transition: transform 0.5s, left 1s linear, top 1s linear;
         }
     </style>
 </head>
 <body>
-    <img src="rat.png" id="rat" alt="Rat">
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const rat = document.getElementById('rat');
-            const moveSpeed = 5000; // Time in milliseconds for the rat to move
-            const waitTime = 3000; // Time in milliseconds for the rat to wait before moving again
-            let lastPosition = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-            rat.style.left = `${lastPosition.x}px`;
-            rat.style.top = `${lastPosition.y}px`;
-
-            function getRandomPosition() {
-                const x = Math.random() * (window.innerWidth - rat.width);
-                const y = Math.random() * (window.innerHeight - rat.height);
-                return { x, y };
-            }
-
-            function getAngle(from, to) {
-                const dx = to.x - from.x;
-                const dy = to.y - from.y;
-                return Math.atan2(dy, dx) * 180 / Math.PI - 90; // Subtracting 90 degrees since the rat image faces up
-            }
-
-            function rotateRat(newPosition, callback) {
-                const angle = getAngle(lastPosition, newPosition);
-                rat.style.transition = `transform ${waitTime}ms linear`;
-                rat.style.transform = `rotate(${angle}deg)`;
-
-                setTimeout(callback, waitTime); // Call callback after rotation
-            }
-
-            function moveRat(newPosition) {
-                rat.style.transition = `top ${moveSpeed}ms linear, left ${moveSpeed}ms linear`;
-                rat.style.left = `${newPosition.x}px`;
-                rat.style.top = `${newPosition.y}px`;
-
-                lastPosition = newPosition;
-
-                setTimeout(skitterRat, moveSpeed + waitTime); // Schedule the next move
-            }
-
-            function skitterRat() {
-                const newPosition = getRandomPosition();
-                rotateRat(newPosition, () => moveRat(newPosition));
-            }
-
-            skitterRat();
-        });
-    </script>
+    <img id="rat" src="https://example.com/rat.png" alt="Rat">
+    <script src="script.js"></script>
 </body>
 </html>
