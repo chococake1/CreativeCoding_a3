@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const moveInterval = 2000; // Time in milliseconds between movements
     const pauseTime = 500; // Time in milliseconds to stand still before turning and moving again
     const hideDuration = 3000; // Time in milliseconds to hide after click
+    const animationDuration = 1000; // Time in milliseconds for animation
     let angle = 0;
     let timeoutID;
 
@@ -58,8 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const dy = reappearPosition.y - offscreenY;
                 angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90; // Adjusted by 90 degrees
 
+                rat.style.transition = `transform ${animationDuration / 1000}s, left ${animationDuration / 1000}s linear, top ${animationDuration / 1000}s linear`;
                 rat.style.transform = `rotate(${angle}deg)`;
-                rat.style.transition = 'left 1s linear, top 1s linear';
                 rat.style.left = `${reappearPosition.x}px`;
                 rat.style.top = `${reappearPosition.y}px`;
 
