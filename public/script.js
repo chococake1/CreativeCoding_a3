@@ -5,14 +5,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const hideDuration = 3000; // Time in milliseconds to hide after click
     const animationDuration = 1000; // Time in milliseconds for animation
     const clickCooldown = 2000; // Time in milliseconds to prevent rapid clicking
+    const minMoveDistance = Math.min(window.innerWidth, window.innerHeight) / 5; // Minimum distance to move
     let angle = 0;
     let timeoutID;
     let canClick = true;
 
     function getRandomPosition() {
-        const x = Math.random() * (window.innerWidth - rat.clientWidth);
-        const y = Math.random() * (window.innerHeight - rat.clientHeight);
-        return { x, y };
+        let newPosition;
+        do {
+            newPosition = {
+                x: Math.random() * (window.innerWidth - rat.clientWidth),
+                y: Math.random() * (window.innerHeight - rat.clientHeight)
+            };
+        } while (Math.abs(newPosition.x - rat.offsetLeft) < minMoveDistance || Math.abs(newPosition.y - rat.offsetTop) < minMoveDistance);
+        return newPosition;
     }
 
     function moveRat() {
@@ -72,11 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Get random onscreen position
                 const reappearPosition = getRandomPosition();
 
-                // Calculate angle for animation
-                const dx = reappearPosition.x - offscreenX;
-                const dy = reappearPosition.y - offscreenY;
-                angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90; // Adjusted by 90 degrees
-
                 // Smoothly move rat back onscreen
                 rat.style.transition = `transform ${animationDuration / 1000}s, left ${animationDuration / 1000}s linear, top ${animationDuration / 1000}s linear`;
                 rat.style.transform = `rotate(${angle}deg)`;
@@ -87,6 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     canClick = true;
                 }, clickCooldown);
+
+                // Continue moving the rat
+                timeoutID = setTimeout(moveRat, moveInterval);
             }, hideDuration);
         }, 50); // Wait 50 milliseconds for the rat to turn
     }
