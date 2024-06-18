@@ -32,20 +32,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function runAway() {
         clearTimeout(timeoutID); // Clear the ongoing movement timeout
-        const newPosition = {
-            x: Math.random() > 0.5 ? -rat.clientWidth : window.innerWidth,
-            y: Math.random() * window.innerHeight
-        };
-        rat.style.left = `${newPosition.x}px`;
-        rat.style.top = `${newPosition.y}px`;
+        let offscreenX, offscreenY;
 
-        // Hide offscreen and reappear at a random position after hiding duration
+        // Determine offscreen position
+        if (Math.random() > 0.5) {
+            offscreenX = Math.random() > 0.5 ? -rat.clientWidth : window.innerWidth;
+            offscreenY = Math.random() * window.innerHeight;
+        } else {
+            offscreenX = Math.random() * window.innerWidth;
+            offscreenY = Math.random() > 0.5 ? -rat.clientHeight : window.innerHeight;
+        }
+
+        const dx = offscreenX - rat.offsetLeft;
+        const dy = offscreenY - rat.offsetTop;
+        angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90; // Adjusted by 90 degrees
+        rat.style.transform = `rotate(${angle}deg)`;
+
         setTimeout(() => {
-            const reappearPosition = getRandomPosition();
-            rat.style.left = `${reappearPosition.x}px`;
-            rat.style.top = `${reappearPosition.y}px`;
-            moveRat(); // Resume normal skittering
-        }, hideDuration);
+            rat.style.left = `${offscreenX}px`;
+            rat.style.top = `${offscreenY}px`;
+
+            setTimeout(() => {
+                const reappearPosition = getRandomPosition();
+                const dx = reappearPosition.x - offscreenX;
+                const dy = reappearPosition.y - offscreenY;
+                angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90; // Adjusted by 90 degrees
+
+                rat.style.transition = 'none';
+                rat.style.transform = `rotate(${angle}deg)`;
+                rat.style.left = `${reappearPosition.x}px`;
+                rat.style.top = `${reappearPosition.y}px`;
+
+                setTimeout(() => {
+                    rat.style.transition = 'transform 0.5s, left 1s linear, top 1s linear';
+                    moveRat(); // Resume normal skittering
+                }, 50); // Small delay to apply the new position
+            }, hideDuration); // Wait before reappearing
+        }, 1000); // Ensure the rat has moved offscreen before starting the timer
     }
 
     // Set initial position
