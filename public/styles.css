@@ -1,67 +1,32 @@
 body {
+    margin: 0;
+    overflow: hidden;
     font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom right, #74ebd5, #ACB6E5);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f0f0;
-    margin: 0;
-    transition: background-color 30s ease-in-out; /* Add transition for background color */
+    color: #333;
 }
 
-.container {
+#container {
     text-align: center;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    width: 100%;
-    z-index: 10;
+    position: relative;
 }
 
 h1 {
-    margin-bottom: 20px;
-    font-size: 24px;
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
 }
 
-.question {
-    margin-bottom: 20px;
-    display: none; /* Hide all questions by default */
+p {
+    font-size: 1.2em;
+    margin-bottom: 2em;
 }
 
-button {
-    margin: 5px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #007BFF;
-    color: white;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-#controls {
-    margin-top: 20px;
-}
-
-#playSymphony, #stopSymphony {
-    background-color: #28a745;
-}
-
-#stopSymphony {
-    background-color: #dc3545;
-}
-
-#playSymphony:hover {
-    background-color: #218838;
-}
-
-#stopSymphony:hover {
-    background-color: #c82333;
+#rat {
+    position: absolute;
+    width: 150px; /* Increased size by 50% */
+    transition: transform 0.5s, left 1s linear, top 1s linear;
 }
