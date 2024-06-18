@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const newPosition = getRandomPosition();
         const dx = newPosition.x - rat.offsetLeft;
         const dy = newPosition.y - rat.offsetTop;
-        angle = Math.atan2(dy, dx) * (180 / Math.PI);
+        angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90; // Adjusted by 90 degrees
 
         rat.style.transition = 'transform 0.5s'; // Only apply transform transition during pause
         rat.style.transform = `rotate(${angle}deg)`;
