@@ -38,7 +38,7 @@
             function getAngle(from, to) {
                 const dx = to.x - from.x;
                 const dy = to.y - from.y;
-                return Math.atan2(dy, dx) * 180 / Math.PI;
+                return Math.atan2(dy, dx) * 180 / Math.PI - 90; // Subtracting 90 degrees since the rat image faces up
             }
 
             function moveRat() {
@@ -55,7 +55,7 @@
 
             function skitterRat() {
                 moveRat();
-                setTimeout(skitterRat, 0); // Immediate transition to next movement
+                setTimeout(skitterRat, Math.random() * 2000 + 1000); // Random delay between movements, increased for slower movement
             }
 
             skitterRat();
