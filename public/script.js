@@ -28,5 +28,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }, pauseTime);
     }
 
-    moveRat();
+    // Set initial position
+    const initialPosition = getRandomPosition();
+    rat.style.left = `${initialPosition.x}px`;
+    rat.style.top = `${initialPosition.y}px`;
+
+    // Start moving the rat
+    setTimeout(moveRat, moveInterval);
 });
