@@ -24,7 +24,8 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const rat = document.getElementById('rat');
-            const speed = 5000; // Time in milliseconds for the rat to move, increased for slower movement
+            const moveSpeed = 5000; // Time in milliseconds for the rat to move
+            const waitTime = 3000; // Time in milliseconds for the rat to wait before moving again
             let lastPosition = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
             rat.style.left = `${lastPosition.x}px`;
             rat.style.top = `${lastPosition.y}px`;
@@ -41,21 +42,27 @@
                 return Math.atan2(dy, dx) * 180 / Math.PI - 90; // Subtracting 90 degrees since the rat image faces up
             }
 
-            function moveRat() {
-                const newPosition = getRandomPosition();
+            function rotateRat(newPosition, callback) {
                 const angle = getAngle(lastPosition, newPosition);
-                
-                rat.style.transition = `transform ${speed}ms linear, top ${speed}ms linear, left ${speed}ms linear`;
+                rat.style.transition = `transform ${waitTime}ms linear`;
                 rat.style.transform = `rotate(${angle}deg)`;
+
+                setTimeout(callback, waitTime); // Call callback after rotation
+            }
+
+            function moveRat(newPosition) {
+                rat.style.transition = `top ${moveSpeed}ms linear, left ${moveSpeed}ms linear`;
                 rat.style.left = `${newPosition.x}px`;
                 rat.style.top = `${newPosition.y}px`;
-                
+
                 lastPosition = newPosition;
+
+                setTimeout(skitterRat, moveSpeed + waitTime); // Schedule the next move
             }
 
             function skitterRat() {
-                moveRat();
-                setTimeout(skitterRat, Math.random() * 2000 + 1000); // Random delay between movements, increased for slower movement
+                const newPosition = getRandomPosition();
+                rotateRat(newPosition, () => moveRat(newPosition));
             }
 
             skitterRat();
