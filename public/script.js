@@ -93,6 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     canClick = true;
                 }, clickCooldown);
+
+                // Continue moving the rat
+                timeoutID = setTimeout(moveRat, moveInterval);
             }, hideDuration);
         }, 50); // Wait 50 milliseconds for the rat to turn
     }
