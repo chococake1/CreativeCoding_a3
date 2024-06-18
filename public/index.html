@@ -4,14 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skittering Rat</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        #rat {
+            position: absolute;
+            width: 150px; /* Increased size by 50% */
+            transition: transform 0.5s, left 1s linear, top 1s linear;
+        }
+    </style>
 </head>
 <body>
-    <div id="container">
-        <h1>Welcome to the Skittering Rat Page!</h1>
-        <p>Watch the rat skitter around the screen, only turning when it stands still.</p>
-        <img src="rat.png" id="rat" alt="Rat">
-    </div>
+    <img src="rat.png" id="rat" alt="Rat">
     <script src="script.js"></script>
 </body>
 </html>
