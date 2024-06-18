@@ -24,7 +24,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const rat = document.getElementById('rat');
-            const speed = 300; // Time in milliseconds for the rat to move
+            const speed = 2000; // Time in milliseconds for the rat to move, increased for slower movement
             let lastPosition = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
             rat.style.left = `${lastPosition.x}px`;
             rat.style.top = `${lastPosition.y}px`;
@@ -55,7 +55,7 @@
 
             function skitterRat() {
                 moveRat();
-                setTimeout(skitterRat, Math.random() * 1000 + 200); // Random delay between movements
+                setTimeout(skitterRat, Math.random() * 2000 + 1000); // Random delay between movements, increased for slower movement
             }
 
             skitterRat();
