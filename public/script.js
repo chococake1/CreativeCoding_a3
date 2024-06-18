@@ -69,13 +69,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Wait for hide duration
             setTimeout(() => {
+                // Get random onscreen position
+                const reappearPosition = getRandomPosition();
+
+                // Calculate angle for animation
+                const dx = reappearPosition.x - offscreenX;
+                const dy = reappearPosition.y - offscreenY;
+                angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90; // Adjusted by 90 degrees
+
+                // Smoothly move rat back onscreen
+                rat.style.transition = `transform ${animationDuration / 1000}s, left ${animationDuration / 1000}s linear, top ${animationDuration / 1000}s linear`;
+                rat.style.transform = `rotate(${angle}deg)`;
+                rat.style.left = `${reappearPosition.x}px`;
+                rat.style.top = `${reappearPosition.y}px`;
+
                 // Re-enable click event after cooldown
                 setTimeout(() => {
                     canClick = true;
                 }, clickCooldown);
-
-                // Resume normal skittering after reappearing
-                moveRat();
             }, hideDuration);
         }, 50); // Wait 50 milliseconds for the rat to turn
     }
