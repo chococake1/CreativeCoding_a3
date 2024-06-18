@@ -5,14 +5,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const hideDuration = 3000; // Time in milliseconds to hide after click
     const animationDuration = 1000; // Time in milliseconds for animation
     const clickCooldown = 2000; // Time in milliseconds to prevent rapid clicking
+    const minMoveDistance = Math.min(window.innerWidth, window.innerHeight) / 5; // Minimum distance to move
     let angle = 0;
     let timeoutID;
     let canClick = true;
 
     function getRandomPosition() {
-        const x = Math.random() * (window.innerWidth - rat.clientWidth);
-        const y = Math.random() * (window.innerHeight - rat.clientHeight);
-        return { x, y };
+        let newPosition;
+        do {
+            newPosition = {
+                x: Math.random() * (window.innerWidth - rat.clientWidth),
+                y: Math.random() * (window.innerHeight - rat.clientHeight)
+            };
+        } while (Math.abs(newPosition.x - rat.offsetLeft) < minMoveDistance || Math.abs(newPosition.y - rat.offsetTop) < minMoveDistance);
+        return newPosition;
     }
 
     function moveRat() {
