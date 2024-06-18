@@ -32,13 +32,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function runAway() {
         clearTimeout(timeoutID); // Clear the ongoing movement timeout
-        const newPosition = getRandomPosition();
+        const newPosition = {
+            x: Math.random() > 0.5 ? -rat.clientWidth : window.innerWidth,
+            y: Math.random() * window.innerHeight
+        };
         rat.style.left = `${newPosition.x}px`;
         rat.style.top = `${newPosition.y}px`;
 
-        // Resume normal skittering after hiding duration
+        // Hide offscreen and reappear at a random position after hiding duration
         setTimeout(() => {
-            moveRat();
+            const reappearPosition = getRandomPosition();
+            rat.style.left = `${reappearPosition.x}px`;
+            rat.style.top = `${reappearPosition.y}px`;
+            moveRat(); // Resume normal skittering
         }, hideDuration);
     }
 
