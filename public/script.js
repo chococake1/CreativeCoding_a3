@@ -4,8 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const pauseTime = 500; // Time in milliseconds to stand still before turning and moving again
     const hideDuration = 3000; // Time in milliseconds to hide after click
     const animationDuration = 1000; // Time in milliseconds for animation
+    const clickCooldown = 2000; // Time in milliseconds to prevent rapid clicking
     let angle = 0;
     let timeoutID;
+    let canClick = true;
 
     function getRandomPosition() {
         const x = Math.random() * (window.innerWidth - rat.clientWidth);
@@ -32,6 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function runAway() {
+        if (!canClick) return; // Ignore clicks during cooldown
+        canClick = false; // Disable click event temporarily
+
         clearTimeout(timeoutID); // Clear the ongoing movement timeout
         let offscreenX, offscreenY;
 
@@ -64,9 +69,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 rat.style.left = `${reappearPosition.x}px`;
                 rat.style.top = `${reappearPosition.y}px`;
 
-                timeoutID = setTimeout(moveRat, moveInterval); // Resume normal skittering after reappearing
+                timeoutID = setTimeout(() => {
+                    moveRat(); // Resume normal skittering after reappearing
+                    canClick = true; // Re-enable click event after cooldown
+                }, moveInterval);
             }, hideDuration);
         }, 1000); // Ensure the rat has moved offscreen before starting the timer
+
+        setTimeout(() => {
+            canClick = true; // Re-enable click event after cooldown
+        }, clickCooldown);
     }
 
     // Set initial position
