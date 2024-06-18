@@ -38,47 +38,47 @@ document.addEventListener('DOMContentLoaded', () => {
         canClick = false; // Disable click event temporarily
 
         clearTimeout(timeoutID); // Clear the ongoing movement timeout
-        let offscreenX, offscreenY;
+
+        // Get current rat position
+        const currentX = rat.offsetLeft;
+        const currentY = rat.offsetTop;
 
         // Determine offscreen position
-        if (Math.random() > 0.5) {
-            offscreenX = Math.random() > 0.5 ? -rat.clientWidth : window.innerWidth;
-            offscreenY = Math.random() * window.innerHeight;
-        } else {
-            offscreenX = Math.random() * window.innerWidth;
-            offscreenY = Math.random() > 0.5 ? -rat.clientHeight : window.innerHeight;
-        }
+        const offscreenX = Math.random() > 0.5 ? -rat.clientWidth : window.innerWidth;
+        const offscreenY = Math.random() > 0.5 ? -rat.clientHeight : window.innerHeight;
 
-        const dx = offscreenX - rat.offsetLeft;
-        const dy = offscreenY - rat.offsetTop;
+        // Calculate angle for animation
+        const dx = offscreenX - currentX;
+        const dy = offscreenY - currentY;
         angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90; // Adjusted by 90 degrees
+
+        // Smoothly move rat offscreen
+        rat.style.transition = `transform ${animationDuration / 1000}s, left ${animationDuration / 1000}s linear, top ${animationDuration / 1000}s linear`;
         rat.style.transform = `rotate(${angle}deg)`;
+        rat.style.left = `${offscreenX}px`;
+        rat.style.top = `${offscreenY}px`;
 
+        // Wait for hide duration
         setTimeout(() => {
-            rat.style.left = `${offscreenX}px`;
-            rat.style.top = `${offscreenY}px`;
+            // Get random onscreen position
+            const reappearPosition = getRandomPosition();
 
+            // Calculate angle for animation
+            const dx = reappearPosition.x - offscreenX;
+            const dy = reappearPosition.y - offscreenY;
+            angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90; // Adjusted by 90 degrees
+
+            // Smoothly move rat back onscreen
+            rat.style.transition = `transform ${animationDuration / 1000}s, left ${animationDuration / 1000}s linear, top ${animationDuration / 1000}s linear`;
+            rat.style.transform = `rotate(${angle}deg)`;
+            rat.style.left = `${reappearPosition.x}px`;
+            rat.style.top = `${reappearPosition.y}px`;
+
+            // Re-enable click event after cooldown
             setTimeout(() => {
-                const reappearPosition = getRandomPosition();
-                const dx = reappearPosition.x - offscreenX;
-                const dy = reappearPosition.y - offscreenY;
-                angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90; // Adjusted by 90 degrees
-
-                rat.style.transition = `transform ${animationDuration / 1000}s, left ${animationDuration / 1000}s linear, top ${animationDuration / 1000}s linear`;
-                rat.style.transform = `rotate(${angle}deg)`;
-                rat.style.left = `${reappearPosition.x}px`;
-                rat.style.top = `${reappearPosition.y}px`;
-
-                timeoutID = setTimeout(() => {
-                    moveRat(); // Resume normal skittering after reappearing
-                    canClick = true; // Re-enable click event after cooldown
-                }, moveInterval);
-            }, hideDuration);
-        }, 1000); // Ensure the rat has moved offscreen before starting the timer
-
-        setTimeout(() => {
-            canClick = true; // Re-enable click event after cooldown
-        }, clickCooldown);
+                canClick = true;
+            }, clickCooldown);
+        }, hideDuration);
     }
 
     // Set initial position
