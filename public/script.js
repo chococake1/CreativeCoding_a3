@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let angle = 0;
     let timeoutID;
     let canClick = true;
-    let runCount = 0;
+    let runawayCount = 0; // Track the number of times the rat has run away
 
     function getRandomPosition() {
         let newPosition;
@@ -125,13 +125,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, animationDuration);
 
             }, 50); // Give time for the transition setup
-        }, hideDuration);
 
-        runCount++;
-        if (runCount >= 2 && Math.random() < 0.5) {
-            mouseSound.play().catch(error => console.error("Failed to play mouse sound:", error));
-            runCount = 0;
-        }
+            // Increase the runaway count and check if it's time to play the mouse sound
+            runawayCount++;
+            if (runawayCount >= 2 && Math.random() < 0.5) {
+                mouseSound.play().catch(error => console.error("Failed to play sound:", error));
+                runawayCount = 0; // Reset the count
+            }
+
+        }, hideDuration);
     }
 
     // Set initial position
