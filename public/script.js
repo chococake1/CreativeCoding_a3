@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const rat = document.getElementById('rat');
+    const clickSound = document.getElementById('click-sound');
     const moveInterval = 2000; // Time in milliseconds between movements
     const pauseTime = 500; // Time in milliseconds to stand still before turning and moving again
     const hideDuration = 3000; // Time in milliseconds to hide after click
@@ -63,6 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
         canClick = false; // Disable click event temporarily
 
         clearTimeout(timeoutID); // Clear the ongoing movement timeout
+
+        // Play the click sound
+        clickSound.play();
 
         // Stop the rat suddenly
         rat.style.transition = 'none';
