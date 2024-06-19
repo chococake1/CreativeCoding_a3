@@ -49,9 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function flashBackgroundColor() {
+        const originalColor = document.body.style.backgroundColor;
+        document.body.style.transition = 'background-color 0s'; // Disable transition for instant change
         document.body.style.backgroundColor = getRandomColor();
         setTimeout(() => {
-            document.body.style.backgroundColor = 'white';
+            document.body.style.transition = 'background-color 2s'; // Enable transition for smooth return
+            document.body.style.backgroundColor = originalColor;
         }, 50); // Hold the color for a short time before transitioning back to white
     }
 
