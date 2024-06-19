@@ -129,8 +129,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }, hideDuration);
     }
 
-    // Preload mouse sound
+    // Preload mouse sound and play at the start
     mouseSound.load();
+    mouseSound.play().catch(error => console.error("Failed to play sound:", error));
 
     // Set initial position
     const initialPosition = getRandomPosition();
@@ -149,3 +150,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add event listener for clicks to make the rat run away
     document.addEventListener('click', runAway);
 });
+
