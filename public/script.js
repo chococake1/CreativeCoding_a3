@@ -82,34 +82,37 @@ document.addEventListener('DOMContentLoaded', () => {
         // Flash the background color
         flashBackgroundColor();
 
-        // Wait a short time for the rat to turn
+        // Determine offscreen position
+        const offscreenX = Math.random() > 0.5 ? -rat.clientWidth : window.innerWidth;
+        const offscreenY = Math.random() > 0.5 ? -rat.clientHeight : window.innerHeight;
+
+        // Calculate angle for animation
+        const dxOffscreen = offscreenX - rat.offsetLeft;
+        const dyOffscreen = offscreenY - rat.offsetTop;
+        angle = Math.atan2(dyOffscreen, dxOffscreen) * (180 / Math.PI) + 90; // Adjusted by 90 degrees
+
+        // Smoothly move rat offscreen
+        rat.style.transition = `transform ${animationDuration / 1000}s, left ${animationDuration / 1000}s linear, top ${animationDuration / 1000}s linear`;
+        rat.style.transform = `rotate(${angle}deg)`;
+        rat.style.left = `${offscreenX}px`;
+        rat.style.top = `${offscreenY}px`;
+
+        // Wait for hide duration
         setTimeout(() => {
-            // Determine offscreen position
-            const offscreenX = Math.random() > 0.5 ? -rat.clientWidth : window.innerWidth;
-            const offscreenY = Math.random() > 0.5 ? -rat.clientHeight : window.innerHeight;
+            // Calculate a new angle for the rat to return onscreen smoothly
+            const reappearPosition = getRandomPosition();
+            const dxReturn = reappearPosition.x - offscreenX;
+            const dyReturn = reappearPosition.y - offscreenY;
+            angle = Math.atan2(dyReturn, dxReturn) * (180 / Math.PI) + 90; // Adjusted by 90 degrees
 
-            // Calculate angle for animation
-            const dxOffscreen = offscreenX - rat.offsetLeft;
-            const dyOffscreen = offscreenY - rat.offsetTop;
-            angle = Math.atan2(dyOffscreen, dxOffscreen) * (180 / Math.PI) + 90; // Adjusted by 90 degrees
-
-            // Smoothly move rat offscreen
-            rat.style.transition = `transform ${animationDuration / 1000}s, left ${animationDuration / 1000}s linear, top ${animationDuration / 1000}s linear`;
-            rat.style.transform = `rotate(${angle}deg)`;
+            // Move rat back onscreen
+            rat.style.transition = 'none';
             rat.style.left = `${offscreenX}px`;
             rat.style.top = `${offscreenY}px`;
+            rat.style.transform = `rotate(${angle}deg)`;
 
-            // Wait for hide duration
             setTimeout(() => {
-                // Calculate a new angle for the rat to return onscreen smoothly
-                const reappearPosition = getRandomPosition();
-                const dxReturn = reappearPosition.x - offscreenX;
-                const dyReturn = reappearPosition.y - offscreenY;
-                angle = Math.atan2(dyReturn, dxReturn) * (180 / Math.PI) + 90; // Adjusted by 90 degrees
-
-                // Smoothly move rat back onscreen
                 rat.style.transition = `left ${animationDuration / 1000}s linear, top ${animationDuration / 1000}s linear, transform ${animationDuration / 1000}s`;
-                rat.style.transform = `rotate(${angle}deg)`;
                 rat.style.left = `${reappearPosition.x}px`;
                 rat.style.top = `${reappearPosition.y}px`;
 
@@ -119,8 +122,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     timeoutID = setTimeout(moveRat, moveInterval);
                 }, animationDuration);
 
-            }, hideDuration);
-        }, 50); // Wait 50 milliseconds for the rat to turn
+            }, 50); // Give time for the transition setup
+        }, hideDuration);
     }
 
     // Set initial position
