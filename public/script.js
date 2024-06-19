@@ -21,6 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
         return newPosition;
     }
 
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
     function moveRat() {
         const newPosition = getRandomPosition();
         const dx = newPosition.x - rat.offsetLeft;
@@ -39,6 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }, pauseTime);
     }
 
+    function flashBackgroundColor() {
+        document.body.style.backgroundColor = getRandomColor();
+        setTimeout(() => {
+            document.body.style.backgroundColor = 'white';
+        }, 50); // Hold the color for a short time before transitioning back to white
+    }
+
     function runAway(event) {
         if (!canClick) return; // Ignore clicks during cooldown
         canClick = false; // Disable click event temporarily
@@ -55,6 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Turn the rat to face the direction of the click
         rat.style.transform = `rotate(${angle}deg)`;
+
+        // Flash the background color
+        flashBackgroundColor();
 
         // Wait a short time for the rat to turn
         setTimeout(() => {
