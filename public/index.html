@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skittering Rat</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-        }
-        #rat {
-            position: absolute;
-            width: 150px; /* Increased size by 50% */
-            transition: transform 0.5s, left 1s linear, top 1s linear;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rat Skitter</title>
+<style>
+    body {
+        margin: 0;
+        overflow: hidden;
+    }
+    #rat {
+        position: absolute;
+        width: 150px; /* 50% larger */
+        height: 150px; /* 50% larger */
+        transition: transform 0.5s, left 1s linear, top 1s linear;
+    }
+</style>
 </head>
 <body>
-    <img src="rat.png" id="rat" alt="Rat">
-    <script src="script.js"></script>
+<img src="rat.png" id="rat" alt="Rat">
+<script src="script.js"></script>
 </body>
 </html>
