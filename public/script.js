@@ -150,4 +150,3 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add event listener for clicks to make the rat run away
     document.addEventListener('click', runAway);
 });
-
