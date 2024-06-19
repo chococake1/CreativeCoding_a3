@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const pauseTime = 500; // Time in milliseconds to stand still before turning and moving again
     const hideDuration = 3000; // Time in milliseconds to hide after click
     const animationDuration = 1000; // Time in milliseconds for animation
-    const clickCooldown = 2000; // Time in milliseconds to prevent rapid clicking
     const minMoveDistance = Math.min(window.innerWidth, window.innerHeight) / 5; // Minimum distance to move
     let angle = 0;
     let timeoutID;
@@ -87,9 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const offscreenY = Math.random() > 0.5 ? -rat.clientHeight : window.innerHeight;
 
             // Calculate angle for animation
-            const dx = offscreenX - rat.offsetLeft;
-            const dy = offscreenY - rat.offsetTop;
-            angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90; // Adjusted by 90 degrees
+            const dxOffscreen = offscreenX - rat.offsetLeft;
+            const dyOffscreen = offscreenY - rat.offsetTop;
+            angle = Math.atan2(dyOffscreen, dxOffscreen) * (180 / Math.PI) + 90; // Adjusted by 90 degrees
 
             // Smoothly move rat offscreen
             rat.style.transition = `transform ${animationDuration / 1000}s, left ${animationDuration / 1000}s linear, top ${animationDuration / 1000}s linear`;
@@ -99,17 +98,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Wait for hide duration
             setTimeout(() => {
-                // Get random onscreen position
+                // Get random offscreen position
                 const reappearPosition = getRandomPosition();
-
-                // Calculate angle for animation
-                const dx = reappearPosition.x - offscreenX;
-                const dy = reappearPosition.y - offscreenY;
-                angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90; // Adjusted by 90 degrees
-
+                
                 // Smoothly move rat back onscreen
-                rat.style.transition = `transform ${animationDuration / 1000}s, left ${animationDuration / 1000}s linear, top ${animationDuration / 1000}s linear`;
-                rat.style.transform = `rotate(${angle}deg)`;
+                rat.style.transition = `left ${animationDuration / 1000}s linear, top ${animationDuration / 1000}s linear`;
                 rat.style.left = `${reappearPosition.x}px`;
                 rat.style.top = `${reappearPosition.y}px`;
 
