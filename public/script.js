@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let angle = 0;
     let timeoutID;
     let canClick = true;
+    let moveCount = 0;
 
     function getRandomPosition() {
         let newPosition;
@@ -57,6 +58,11 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.transition = 'background-color 2s'; // Enable transition for smooth return
             document.body.style.backgroundColor = originalColor;
         }, 50); // Hold the color for a short time before transitioning back to white
+    }
+
+    function playMouseSound() {
+        const mouseSound = document.getElementById('mouse-sound');
+        mouseSound.play().catch(error => console.error("Failed to play sound:", error));
     }
 
     function runAway(event) {
@@ -124,6 +130,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             }, 50); // Give time for the transition setup
         }, hideDuration);
+
+        moveCount++;
+        if (moveCount >= 2 && Math.random() > 0.5) {
+            playMouseSound();
+            moveCount = 0;
+        }
     }
 
     // Set initial position
