@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const rat = document.getElementById('rat');
     const catSound = document.getElementById('cat-sound');
+    const mouseSound = document.getElementById('mouse-sound');
     const moveInterval = 2000; // Time in milliseconds between movements
     const pauseTime = 500; // Time in milliseconds to stand still before turning and moving again
     const hideDuration = 3000; // Time in milliseconds to hide after click
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let angle = 0;
     let timeoutID;
     let canClick = true;
+    let runCount = 0;
 
     function getRandomPosition() {
         let newPosition;
@@ -124,6 +126,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             }, 50); // Give time for the transition setup
         }, hideDuration);
+
+        runCount++;
+        if (runCount >= 2 && Math.random() < 0.5) {
+            mouseSound.play().catch(error => console.error("Failed to play mouse sound:", error));
+            runCount = 0;
+        }
     }
 
     // Set initial position
