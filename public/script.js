@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function flashBackgroundColor() {
         const originalColor = 'white';
-        document.body.style.transition = 'background-color 0s'; // Disable transition for instant change
-        document.body.style.backgroundColor = getRandomColor();
+        const randomColor = getRandomColor();
+        document.body.style.backgroundColor = randomColor;
         requestAnimationFrame(() => {
             setTimeout(() => {
                 document.body.style.transition = 'background-color 2s'; // Enable transition for smooth return
@@ -98,11 +98,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Wait for hide duration
             setTimeout(() => {
-                // Get random offscreen position
+                // Calculate a new angle for the rat to return onscreen smoothly
                 const reappearPosition = getRandomPosition();
-                
+                const dxReturn = reappearPosition.x - offscreenX;
+                const dyReturn = reappearPosition.y - offscreenY;
+                angle = Math.atan2(dyReturn, dxReturn) * (180 / Math.PI) + 90; // Adjusted by 90 degrees
+
                 // Smoothly move rat back onscreen
-                rat.style.transition = `left ${animationDuration / 1000}s linear, top ${animationDuration / 1000}s linear`;
+                rat.style.transition = `left ${animationDuration / 1000}s linear, top ${animationDuration / 1000}s linear, transform ${animationDuration / 1000}s`;
+                rat.style.transform = `rotate(${angle}deg)`;
                 rat.style.left = `${reappearPosition.x}px`;
                 rat.style.top = `${reappearPosition.y}px`;
 
