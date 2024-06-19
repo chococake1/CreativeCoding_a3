@@ -126,13 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             }, 50); // Give time for the transition setup
 
-            // Increase the runaway count and check if it's time to play the mouse sound
-            runawayCount++;
-            if (runawayCount >= 2 && Math.random() < 0.5) {
-                mouseSound.play().catch(error => console.error("Failed to play sound:", error));
-                runawayCount = 0; // Reset the count
-            }
-
         }, hideDuration);
     }
 
@@ -143,6 +136,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Start moving the rat
     timeoutID = setTimeout(moveRat, moveInterval);
+
+    // Play mouse sound every 10 seconds
+    setInterval(() => {
+        mouseSound.currentTime = 0; // Reset audio to the beginning
+        mouseSound.play().catch(error => console.error("Failed to play sound:", error));
+    }, 10000);
 
     // Add event listener for clicks to make the rat run away
     document.addEventListener('click', runAway);
