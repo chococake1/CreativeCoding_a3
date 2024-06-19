@@ -50,13 +50,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function flashBackgroundColor() {
         const originalColor = 'white';
         const randomColor = getRandomColor();
+        document.body.style.transition = 'background-color 0s'; // Disable transition for instant change
         document.body.style.backgroundColor = randomColor;
-        requestAnimationFrame(() => {
-            setTimeout(() => {
-                document.body.style.transition = 'background-color 2s'; // Enable transition for smooth return
-                document.body.style.backgroundColor = originalColor;
-            }, 50); // Hold the color for a short time before transitioning back to white
-        });
+        setTimeout(() => {
+            document.body.style.transition = 'background-color 2s'; // Enable transition for smooth return
+            document.body.style.backgroundColor = originalColor;
+        }, 50); // Hold the color for a short time before transitioning back to white
     }
 
     function runAway(event) {
