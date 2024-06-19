@@ -78,19 +78,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Get random onscreen position
                 const reappearPosition = getRandomPosition();
 
+                // Calculate angle for animation
+                const dx = reappearPosition.x - offscreenX;
+                const dy = reappearPosition.y - offscreenY;
+                angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90; // Adjusted by 90 degrees
+
                 // Smoothly move rat back onscreen
                 rat.style.transition = `transform ${animationDuration / 1000}s, left ${animationDuration / 1000}s linear, top ${animationDuration / 1000}s linear`;
                 rat.style.transform = `rotate(${angle}deg)`;
                 rat.style.left = `${reappearPosition.x}px`;
                 rat.style.top = `${reappearPosition.y}px`;
 
-                // Re-enable click event after cooldown
+                // Continue moving the rat after it reappears
                 setTimeout(() => {
                     canClick = true;
-                }, clickCooldown);
+                    timeoutID = setTimeout(moveRat, moveInterval);
+                }, animationDuration);
 
-                // Continue moving the rat
-                timeoutID = setTimeout(moveRat, moveInterval);
             }, hideDuration);
         }, 50); // Wait 50 milliseconds for the rat to turn
     }
