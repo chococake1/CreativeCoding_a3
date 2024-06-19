@@ -129,24 +129,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }, hideDuration);
     }
 
-    // Preload mouse sound and play at the start
-    mouseSound.load();
-    mouseSound.play().catch(error => console.error("Failed to play sound:", error));
-
-    // Set initial position
-    const initialPosition = getRandomPosition();
-    rat.style.left = `${initialPosition.x}px`;
-    rat.style.top = `${initialPosition.y}px`;
-
-    // Start moving the rat
-    timeoutID = setTimeout(moveRat, moveInterval);
-
-    // Play mouse sound every 10 seconds
-    setInterval(() => {
-        mouseSound.currentTime = 0; // Reset audio to the beginning
+    // Preload mouse sound
+    mouseSound.addEventListener('loadeddata', () => {
+        // Play mouse sound
         mouseSound.play().catch(error => console.error("Failed to play sound:", error));
-    }, 10000);
 
-    // Add event listener for clicks to make the rat run away
-    document.addEventListener('click', runAway);
+        // Set initial position
+        const initialPosition = getRandomPosition();
+        rat.style.left = `${initialPosition.x}px`;
+        rat.style.top = `${initialPosition.y}px`;
+
+        // Start moving the rat
+        timeoutID = setTimeout(moveRat, moveInterval);
+
+        // Play mouse sound every 10 seconds
+        setInterval(() => {
+            mouseSound.currentTime = 0; // Reset audio to the beginning
+            mouseSound.play().catch(error => console.error("Failed to play sound:", error));
+        }, 10000);
+
+        // Add event listener for clicks to make the rat run away
+        document.addEventListener('click', runAway);
+    });
+
+    // Load mouse sound
+    mouseSound.load();
 });
