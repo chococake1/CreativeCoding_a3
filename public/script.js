@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const rat = document.getElementById('rat');
-    const clickSound = document.getElementById('click-sound');
+    const catSound = document.getElementById('cat-sound');
     const moveInterval = 2000; // Time in milliseconds between movements
     const pauseTime = 500; // Time in milliseconds to stand still before turning and moving again
     const hideDuration = 3000; // Time in milliseconds to hide after click
@@ -65,8 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         clearTimeout(timeoutID); // Clear the ongoing movement timeout
 
-        // Play the click sound
-        clickSound.play();
+        // Play the cat sound
+        catSound.play().catch(error => console.error("Failed to play sound:", error));
 
         // Stop the rat suddenly
         rat.style.transition = 'none';
