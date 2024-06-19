@@ -129,6 +129,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }, hideDuration);
     }
 
+    // Preload mouse sound
+    mouseSound.load();
+
     // Set initial position
     const initialPosition = getRandomPosition();
     rat.style.left = `${initialPosition.x}px`;
