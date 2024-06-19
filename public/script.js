@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let angle = 0;
     let timeoutID;
     let canClick = true;
-    let runawayCount = 0; // Track the number of times the rat has run away
+    let isTransitioning = false; // Flag to indicate whether the rat is currently transitioning
 
     function getRandomPosition() {
         let newPosition;
@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function runAway(event) {
-        if (!canClick) return; // Ignore clicks during cooldown or runaway action
+        if (!canClick || isTransitioning) return; // Ignore clicks during cooldown or transition
         canClick = false; // Disable click event temporarily
 
         clearTimeout(timeoutID); // Clear the ongoing movement timeout
@@ -99,6 +99,9 @@ document.addEventListener('DOMContentLoaded', () => {
         rat.style.left = `${offscreenX}px`;
         rat.style.top = `${offscreenY}px`;
 
+        // Set transition flag to true
+        isTransitioning = true;
+
         // Wait for hide duration
         setTimeout(() => {
             // Calculate a new angle for the rat to return onscreen smoothly
@@ -122,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     canClick = true;
                     timeoutID = setTimeout(moveRat, moveInterval);
+                    isTransitioning = false; // Set transition flag to false
                 }, animationDuration);
 
             }, 50); // Give time for the transition setup
@@ -155,3 +159,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load mouse sound
     mouseSound.load();
 });
+
