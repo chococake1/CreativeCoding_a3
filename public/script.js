@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function runAway(event) {
-        if (!canClick) return; // Ignore clicks during cooldown
+        if (!canClick) return; // Ignore clicks during cooldown or runaway action
         canClick = false; // Disable click event temporarily
 
         clearTimeout(timeoutID); // Clear the ongoing movement timeout
